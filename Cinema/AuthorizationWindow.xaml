@@ -15,12 +15,12 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Row="0" Margin="0,0,0,50">
-                    <TextBlock Text="Love Cinema" Style="{StaticResource Logo}" Grid.Row="0"></TextBlock>
-                    <Rectangle Height="1" Fill="#fafafa" Margin="0, 20 0, 0" Grid.Row="1" ></Rectangle>
+                    <TextBlock Text="Love Cinema" Style="{StaticResource Logo}"></TextBlock>
+                    <Rectangle Height="1" Fill="#fafafa" Margin="0, 20 0, 0"></Rectangle>
                 </StackPanel>
                 <StackPanel Grid.Row="1" Margin="0,0,0,40">
-                    <TextBox x:Name="LoginText" BorderThickness="3" Style="{StaticResource placeHolder}" Tag="Your name..." Grid.Row="1" VerticalContentAlignment="Center" TextChanged="LoginText_TextChanged"/>
-                    <TextBox x:Name="PasswordText" Style="{StaticResource placeHolder}" Tag="Your password..." Margin="0,25,0,0" Grid.Row="2" VerticalContentAlignment="Center"/>
+                    <TextBox x:Name="LoginText" BorderThickness="3" Style="{StaticResource placeHolder}" Tag="Your name..."/>
+                    <TextBox x:Name="PasswordText" Style="{StaticResource placeHolder}" Tag="Your password..." Margin="0,25,0,0"/>
                 </StackPanel>
                 <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>
@@ -29,16 +29,20 @@
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="AuthorizationCommit" Grid.Column="0"  Content="Log in" Margin="0,0,10,0" Padding="40, 20, 40, 20"
+                    <Button x:Name="AuthorizationCommit" Grid.Column="0"  Content="Log In" Padding="40, 20, 40, 20"
                         Click="AuthorizationCommit_Click" Style="{StaticResource PrimeButton}">
                     </Button>
-                    <Label Content="- OR -" Grid.Column="1" FontSize="16" FontWeight="Bold" FontFamily="Roboto" VerticalContentAlignment="Center"
-                           Foreground="#fafafa" />
-                    <Button x:Name="RegistrationButton" Grid.Column="2" Content="Sign up" Padding="40, 20, 40, 20" Margin="10,0,10,0"
-                        Click="RegistrationButton_Click" Style="{StaticResource PrimeButton}">
+                    <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="20, 0, 20, 0">
+                        <Rectangle Width="30" Height="3" RadiusX="1" RadiusY="1" Fill="#fafafa"></Rectangle>
+                        <Label Content="OR"  FontSize="16" FontWeight="Bold" FontFamily="Roboto" VerticalContentAlignment="Center"
+                           Foreground="#fafafa" Margin="10, 0, 10, 0" />
+                        <Rectangle Width="30" Height="3" RadiusX="1" RadiusY="1" Fill="#fafafa"></Rectangle>
+                    </StackPanel>
+                    <Button x:Name="RegistrationButton" Grid.Column="2" Content="Sign Up" Padding="40, 20, 40, 20"
+                        Click="RegistrationButton_Click" Style="{StaticResource DarkPrimeButton}">
                     </Button>
-                    <Button x:Name="AuthorizationRollBack" Grid.Column="3" Content="Back home" Padding="40, 20, 40, 20" HorizontalAlignment="Right"
-                            Click="AuthorizationRollBack_Click" Style="{StaticResource PrimeButton}">
+                    <Button x:Name="BackHome" Grid.Column="3" Content="Back home" Padding="40, 20, 40, 20" HorizontalAlignment="Right"
+                            Click="BackHome_Click" Style="{StaticResource PrimeButton}">
                     </Button>
                 </Grid>
             </Grid>

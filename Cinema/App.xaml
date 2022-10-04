@@ -4,6 +4,9 @@
              xmlns:local="clr-namespace:Cinema"
              StartupUri="AuthorizationWindow.xaml">
     <Application.Resources>
+        <!--StartupUri="MainWindow.xaml"-->
+        <!--StartupUri="RegistrationWindow.xaml"-->
+        <!--StartupUri="AuthorizationWindow.xaml"-->
         
         <Style x:Key="Logo">
             <Setter Property="Control.FontFamily" Value="Truculenta" />
@@ -31,11 +34,42 @@
 
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#F59F7A" />
+                                <Setter Property="Background" Value="#FFE2BC" />
                             </Trigger>
 
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Background" Value="#D75E55" />
+                                <Setter Property="Background" Value="#DABE9A" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="DarkPrimeButton" TargetType="{x:Type Button}">
+            <Setter Property="Control.FontFamily" Value="Roboto" />
+            <Setter Property="Control.Background" Value="#F59F7A" />
+            <Setter Property="Control.Foreground" Value="#060722" />
+            <Setter Property="Control.FontSize" Value="16" />
+            <Setter Property="Control.FontWeight" Value="Bold"/>
+            <Setter Property="Control.BorderThickness" Value="0"/>
+            <Setter Property="Control.Padding" Value="40, 20, 40, 20"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border CornerRadius="20" Background="{TemplateBinding Background}">
+                            <Grid>
+                                <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" Margin="{TemplateBinding Padding}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Grid>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FDAC89" />
+                            </Trigger>
+
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#D88F70" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -94,7 +128,43 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        
+
+        <Style x:Key="Password" TargetType="{x:Type PasswordBox}" BasedOn="{StaticResource {x:Type PasswordBox}}">
+            <Setter Property="Control.Foreground" Value="#060722" />
+            <Setter Property="Control.Padding" Value="30, 20, 30, 20" />
+            <Setter Property="Control.FontFamily" Value="Roboto" />
+            <Setter Property="Control.FontSize" Value="16" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type PasswordBox}">
+                        <Border x:Name="border" CornerRadius="20" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                            <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="#FF7EB4EA"/>
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="#FF569DE5"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsInactiveSelectionHighlightEnabled" Value="true"/>
+                        <Condition Property="IsSelectionActive" Value="false"/>
+                    </MultiTrigger.Conditions>
+                    <Setter Property="SelectionBrush" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
+                </MultiTrigger>
+            </Style.Triggers>
+        </Style>
+
     </Application.Resources>
     
 </Application>
