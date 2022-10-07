@@ -23,6 +23,7 @@ namespace Cinema
         public MainWindow()
         {
             InitializeComponent();
+            //Application.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
         }
     }
 }

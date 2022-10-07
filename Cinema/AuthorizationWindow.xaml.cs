@@ -35,12 +35,28 @@ namespace Cinema
             }
         }
 
-        private void BackHome_Click(object sender, RoutedEventArgs e)
-        { 
-            if (MessageBox.Show("Вы действительно хотите выйти из программы?", "Внимание", MessageBoxButton.OKCancel, MessageBoxImage.Warning) == MessageBoxResult.OK)
+        private void ChangeWindow(string nameWindow)
+        {
+            switch (nameWindow)
             {
-                Close();
+                case "MainWindow":
+                    MainWindow mainWindow = new MainWindow();
+                    Hide();
+                    mainWindow.ShowDialog();
+                    Close();
+                    break;
+                case "RegistrationWindow":
+                    RegistrationWindow registrationWindow = new RegistrationWindow(DataBase);
+                    Hide();
+                    registrationWindow.ShowDialog();
+                    Close();
+                    break;
             }
+        }
+
+        private void BackHome_Click(object sender, RoutedEventArgs e)
+        {
+            ChangeWindow("MainWindow");
         }
 
         private void AuthorizationCommit_Click(object sender, RoutedEventArgs e)
@@ -48,9 +64,7 @@ namespace Cinema
             Base.Client User = DataBase.Client.SingleOrDefault(U => U.name == LoginText.Text && U.password == PasswordText.Text);
             if (User != null)
             {
-                MainWindow window = new MainWindow();
-                window.Show();
-                
+                ChangeWindow("MainWindow");
             }
             else
             {
@@ -60,8 +74,7 @@ namespace Cinema
 
         private void RegistrationButton_Click(object sender, RoutedEventArgs e)
         {
-            RegistrationWindow window = new RegistrationWindow(DataBase);
-            window.ShowDialog();
+            ChangeWindow("RegistrationWindow");
         }
     }
 }

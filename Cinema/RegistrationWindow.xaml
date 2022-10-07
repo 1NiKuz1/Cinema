@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Cinema"
         mc:Ignorable="d"
-        Title="RegistrationWindow" Background="#060722" MinHeight="560" MinWidth="900">
+        Title="RegistrationWindow" Background="#060722" MinHeight="640" MinWidth="900">
     <Grid x:Name="MainGrid" Margin="100, 50, 100, 0">
         <StackPanel>
-            <Grid x:Name="FormGrid" Visibility="Visible" Height="auto">
+            <Grid x:Name="FormGrid" Visibility="Visible" Height="Auto">
                 <Grid.RowDefinitions>
                     <RowDefinition />
                     <RowDefinition />
@@ -19,15 +19,16 @@
                     <Rectangle Height="1" Fill="#fafafa" Margin="0, 20 0, 0"></Rectangle>
                 </StackPanel>
                 <StackPanel Grid.Row="1" Margin="0,0,0,40">
-                    <TextBox x:Name="LoginText" BorderThickness="3" Style="{StaticResource placeHolder}" Tag="Your name..." />
+                    <TextBox x:Name="LoginText" TabIndex="0" BorderThickness="3" Style="{StaticResource placeHolder}" Tag="Ваше имя..." />
+                    <TextBox x:Name="PhoneNumberText" TabIndex="1" BorderThickness="3" Margin="0,25,0,0" Style="{StaticResource placeHolder}" Tag="Ваш номер телефона..." />
                     <Label Foreground="#fafafa" FontSize="18" FontFamily="Roboto" Margin="0,25,0,0">Придумайте пароль</Label>
                     <DockPanel Margin="0,5,0,0">
                         <Button x:Name="PasswordButton" DockPanel.Dock="Right" VerticalAlignment="Center"
-                        Content="Показать" Style="{StaticResource PrimeButton}" Height="60" TabIndex="1"
+                        Content="Показать" Style="{StaticResource PrimeButton}" Height="60" TabIndex="3"
                         Click="PasswordButton_Click" />
                         <TextBox x:Name="PasswordTextBox" Style="{StaticResource placeHolder}" Width="0" Visibility="Hidden"
-                             TabIndex="1"/>
-                        <PasswordBox x:Name="PasswordBox" Style="{StaticResource Password}" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                             TabIndex="2"/>
+                        <PasswordBox x:Name="PasswordBox" TabIndex="2" Style="{StaticResource Password}" Margin="0,0,10,0"/>
                     </DockPanel>
 
                 </StackPanel>
@@ -38,7 +39,7 @@
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="AuthorizationCommit" Grid.Column="0"  Content="Sign Up" Padding="40, 20, 40, 20"
+                    <Button x:Name="AuthorizationCommit" Grid.Column="0" TabIndex="4" Content="Отправить" Padding="40, 20, 40, 20"
                         Click="RegistrationCommit_Click" Style="{StaticResource PrimeButton}">
                     </Button>
                     <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="20, 0, 20, 0">
@@ -47,10 +48,10 @@
                            Foreground="#fafafa" Margin="10, 0, 10, 0" />
                         <Rectangle Width="30" Height="3" RadiusX="1" RadiusY="1" Fill="#fafafa"></Rectangle>
                     </StackPanel>
-                    <Button x:Name="BackButton" Grid.Column="2" Content="Back" Padding="40, 20, 40, 20"
+                    <Button x:Name="BackButton" Grid.Column="2" TabIndex="5" Content="Назад" Padding="40, 20, 40, 20"
                         Click="BackButton_Click" Style="{StaticResource DarkPrimeButton}">
                     </Button>
-                    <Button x:Name="BackHome" Grid.Column="3" Content="Back home" Padding="40, 20, 40, 20" HorizontalAlignment="Right"
+                    <Button x:Name="BackHome" Grid.Column="3" TabIndex="6" Content="Главная страница" Padding="40, 20, 40, 20" HorizontalAlignment="Right"
                             Click="BackHome_Click" Style="{StaticResource PrimeButton}">
                     </Button>
                 </Grid>
@@ -58,15 +59,24 @@
 
             <Grid x:Name="CaptchaGrid" Visibility="Hidden" Height="0" Margin="0, 40, 0, 0">
                 <StackPanel>
+                    <StackPanel Grid.Row="0" Margin="0,0,0,50">
+                        <TextBlock Text="Love Cinema" Style="{StaticResource Logo}"></TextBlock>
+                        <Rectangle Height="1" Fill="#fafafa" Margin="0, 20 0, 0"></Rectangle>
+                    </StackPanel>
                     <TextBox 
-                        FontSize="28" Foreground="Red" FontStyle="Italic"
+                        Style="{StaticResource capcha}"
+                        x:Name="CaptchaTextBox"
+                        TextDecorations="Strikethrough" 
+                        IsReadOnly="True" />
+                    <TextBox 
                         Style="{StaticResource placeHolder}"
-                        FontWeight="Heavy" Name="CaptchaTextBox" 
-                        VerticalAlignment="Top"  TextDecorations="Strikethrough" 
-                        FontStretch="UltraCondensed"/>
+                        x:Name="InputCaptchaTextBox"
+                        TabIndex="7"
+                        Tag="Введите капчу..."
+                        Margin="0, 35, 0, 0" />
 
-                    <Button Content="Click" HorizontalAlignment="Center" Width="200" Margin="0, 20, 0, 0"
-                        Name="button1" VerticalAlignment="Top" Style="{StaticResource PrimeButton}" Click="CheckCaptcha_Click" >
+                    <Button Content="Отправить" TabIndex="8" HorizontalAlignment="Center" Width="200" Margin="0, 20, 0, 0"
+                        VerticalAlignment="Top" Style="{StaticResource PrimeButton}" Click="CheckCaptcha_Click" >
                     </Button>
                 </StackPanel>
             </Grid>

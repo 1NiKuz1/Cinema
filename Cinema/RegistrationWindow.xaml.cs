@@ -22,88 +22,134 @@ namespace Cinema
     public partial class RegistrationWindow : Window
     {
         private Base.cinemaEntities DataBase;
-        private double formGridHeight;
+        private double formGridHeight; 
+        private double captchaGridHeight = 400;
+
         public RegistrationWindow(Base.cinemaEntities Database)
         {
             InitializeComponent();
             this.DataBase = Database;
         }
 
-        private String CheckPassword(String pas)
+        private void ChangeWindow(string nameWindow)
         {
-            string pattern = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9])\S{8,24}$";
-            Regex regex = new Regex(pattern);
-            if (regex.IsMatch(pas))
+            switch (nameWindow)
             {
-                return pas;
+                case "MainWindow":
+                    MainWindow mainWindow = new MainWindow();
+                    Hide();
+                    mainWindow.ShowDialog();
+                    Close();
+                    break;
+                case "AuthorizationWindow":
+                    AuthorizationWindow authorizationWindow = new AuthorizationWindow();
+                    Hide();
+                    authorizationWindow.ShowDialog();
+                    Close();
+                    break;
             }
-            return "";
+        }
+        private Boolean CheckPassword(String pas)
+        {
+            string pattern = @"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,24}$";
+            Regex regex = new Regex(pattern);
+            return regex.IsMatch(pas);         
+        }
+
+        private Boolean CheckPhoneNumber(String phoneNumber)
+        {
+            string pattern = @"^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$";
+            Regex regex = new Regex(pattern);
+            return regex.IsMatch(phoneNumber);
+        }
+
+        private void ShowAnotherGrid(Grid newGrid, Grid oldGrid, double heightNewGrid)
+        {
+            newGrid.Visibility = Visibility.Visible;
+            newGrid.Height = heightNewGrid;
+            oldGrid.Visibility = Visibility.Hidden;
+            oldGrid.Height = 0;
+        }
+
+        private void FillCaptcha()
+        {
+            InputCaptchaTextBox.Text = "";
+            string allowchar = "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z";
+            allowchar += "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,y,z";
+            allowchar += "1,2,3,4,5,6,7,8,9,0";
+            //разделитель
+            char[] a = { ',' };
+            //расщепление массива по разделителю
+            String[] ar = allowchar.Split(a);
+            String pwd = "";
+            Random r = new Random();
+            for (int i = 0; i < 6; i++)
+            {
+                string temp = ar[(r.Next(0, ar.Length))];
+                pwd += temp;
+            }
+            CaptchaTextBox.Text = pwd;
         }
 
         private void CheckCaptcha_Click(object sender, RoutedEventArgs e)
         {
-            FormGrid.Visibility = Visibility.Visible;
-            FormGrid.Height = formGridHeight;
-            CaptchaGrid.Visibility = Visibility.Hidden;
-            CaptchaGrid.Height = 0;
-            //string allowchar = "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z";
-            //allowchar += "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,y,z";
-            //allowchar += "1,2,3,4,5,6,7,8,9,0";
-            ////разделитель
-            //char[] a = { ',' };
-            ////расщепление массива по разделителю
-            //String[] ar = allowchar.Split(a);
-            //String pwd = " ";
-            //Random r = new Random();
-            //for (int i = 0; i < 6; i++)
-            //{
-            //    string temp = ar[(r.Next(0, ar.Length))];
-            //    pwd += temp;
-            //}
-            //CaptchaTextBox.Text = pwd;
-            
+            ShowAnotherGrid(FormGrid, CaptchaGrid, formGridHeight);
+
+            if (CaptchaTextBox.Text != InputCaptchaTextBox.Text)
+            {
+                MessageBox.Show("Неверна введена капча", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            Base.Client client = new Base.Client
+            {
+                name = LoginText.Text,
+                phoneNumber = PhoneNumberText.Text,
+                isAdmin = false,
+                password = PasswordBox.Password != "" ? PasswordBox.Password : PasswordTextBox.Text
+            };
+            // Добавление его в базу данных
+            DataBase.Client.Add(client);
+            // Сохранение изменений
+            DataBase.SaveChanges();
+
+            ChangeWindow("MainWindow");
         }
 
 
         private void RegistrationCommit_Click(object sender, RoutedEventArgs e)
         {
-            CaptchaGrid.Visibility = Visibility;
-            CaptchaGrid.Height = 144;
-            FormGrid.Visibility = Visibility.Hidden;
-            formGridHeight = FormGrid.Height;
-            FormGrid.Height = 0;
 
             // Создание и инициализация нового пользователя системы
-            //String password = PasswordBox.Password != "" ? CheckPassword(PasswordBox.Password) : CheckPassword(PasswordTextBox.Text);
-            //if (password != "")
-            //{
-            //    Base.Client client = new Base.Client();
-            //    client.name = LoginText.Text;
-            //    client.password = PasswordBox.Password != "" ? PasswordBox.Password : PasswordTextBox.Text;
-            //    // Добавление его в базу данных
-            //    DataBase.Client.Add(client);
-            //    // Сохранение изменений
-            //    DataBase.SaveChanges();
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Неверный формат пароля, попробуйте еще раз", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Warning);
-            //};
-            //Close();
+            Boolean isPassword = PasswordBox.Password != "" ? CheckPassword(PasswordBox.Password) : CheckPassword(PasswordTextBox.Text);
+            
+
+            if (!isPassword)
+            {
+                MessageBox.Show("Неверный формат пароля, попробуйте еще раз", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (!CheckPhoneNumber(PhoneNumberText.Text))
+            {
+                MessageBox.Show("Неверный формат номера телефона, попробуйте еще раз", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            formGridHeight = FormGrid.Height;
+            ShowAnotherGrid(CaptchaGrid, FormGrid, captchaGridHeight);
+
+            FillCaptcha();
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            AuthorizationWindow window = new AuthorizationWindow();
-            window.ShowDialog();
+            ChangeWindow("AuthorizationWindow");
         }
 
         private void BackHome_Click(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show("Вы действительно хотите выйти из программы?", "Внимание", MessageBoxButton.OKCancel, MessageBoxImage.Warning) == MessageBoxResult.OK)
-            {
-                Close();
-            }
+            ChangeWindow("MainWindow");
         }
 
         private void PasswordButton_Click(object sender, RoutedEventArgs e)
