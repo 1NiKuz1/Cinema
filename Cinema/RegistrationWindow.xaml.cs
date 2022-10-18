@@ -22,8 +22,6 @@ namespace Cinema
     public partial class RegistrationWindow : Window
     {
         private Base.cinemaEntities DataBase;
-        private double formGridHeight; 
-        private double captchaGridHeight = 400;
 
         public RegistrationWindow(Base.cinemaEntities Database)
         {
@@ -63,12 +61,10 @@ namespace Cinema
             return regex.IsMatch(phoneNumber);
         }
 
-        private void ShowAnotherGrid(Grid newGrid, Grid oldGrid, double heightNewGrid)
+        private void ShowAnotherGrid(Grid showGrid, Grid hideGrid)
         {
-            newGrid.Visibility = Visibility.Visible;
-            newGrid.Height = heightNewGrid;
-            oldGrid.Visibility = Visibility.Hidden;
-            oldGrid.Height = 0;
+            showGrid.Visibility = Visibility.Visible;
+            hideGrid.Visibility = Visibility.Collapsed;
         }
 
         private void FillCaptcha()
@@ -93,7 +89,7 @@ namespace Cinema
 
         private void CheckCaptcha_Click(object sender, RoutedEventArgs e)
         {
-            ShowAnotherGrid(FormGrid, CaptchaGrid, formGridHeight);
+            ShowAnotherGrid(FormGrid, CaptchaGrid);
 
             if (CaptchaTextBox.Text != InputCaptchaTextBox.Text)
             {
@@ -112,6 +108,8 @@ namespace Cinema
             DataBase.Client.Add(client);
             // Сохранение изменений
             DataBase.SaveChanges();
+
+            MainWindow.client = client;
 
             ChangeWindow("MainWindow");
         }
@@ -136,8 +134,7 @@ namespace Cinema
                 return;
             }
 
-            formGridHeight = FormGrid.Height;
-            ShowAnotherGrid(CaptchaGrid, FormGrid, captchaGridHeight);
+            ShowAnotherGrid(CaptchaGrid, FormGrid);
 
             FillCaptcha();
         }

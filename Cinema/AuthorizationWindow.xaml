@@ -29,7 +29,7 @@
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="AuthorizationCommit" Grid.Column="0" TabIndex="2" Content="Войти" Padding="40, 20, 40, 20"
+                    <Button x:Name="AuthorizationCommit" Grid.Column="0" Cursor="Hand" TabIndex="2" Content="Войти" Padding="40, 20, 40, 20"
                         Click="AuthorizationCommit_Click" Style="{StaticResource PrimeButton}">
                     </Button>
                     <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="20, 0, 20, 0">
@@ -38,10 +38,10 @@
                            Foreground="#fafafa" Margin="10, 0, 10, 0" />
                         <Rectangle Width="30" Height="3" RadiusX="1" RadiusY="1" Fill="#fafafa"></Rectangle>
                     </StackPanel>
-                    <Button x:Name="RegistrationButton" Grid.Column="2" TabIndex="3" Content="Регистрация" Padding="40, 20, 40, 20"
+                    <Button x:Name="RegistrationButton" Grid.Column="2" TabIndex="3" Cursor="Hand" Content="Регистрация" Padding="40, 20, 40, 20"
                         Click="RegistrationButton_Click" Style="{StaticResource DarkPrimeButton}">
                     </Button>
-                    <Button x:Name="BackHome" Grid.Column="3" TabIndex="4" Content="Главная страница" Padding="40, 20, 40, 20" HorizontalAlignment="Right"
+                    <Button x:Name="BackHome" Grid.Column="3" TabIndex="4" Cursor="Hand" Content="Главная страница" Padding="40, 20, 40, 20" HorizontalAlignment="Right"
                             Click="BackHome_Click" Style="{StaticResource PrimeButton}">
                     </Button>
                 </Grid>

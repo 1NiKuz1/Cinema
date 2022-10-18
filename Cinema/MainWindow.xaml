@@ -5,8 +5,28 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Cinema"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="MainWindow" Background="#060722" Height="640" Width="1000">
+    <Grid x:Name="MainGrid" Margin="20, 20, 20, 0">
+        <StackPanel MaxWidth="840">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="Love Cinema" Style="{StaticResource SmallLogo}"></TextBlock>
+                <StackPanel x:Name="NoNameStackPanel" Grid.Column="2" Orientation="Horizontal" Visibility="Visible" VerticalAlignment="Center" HorizontalAlignment="Right">
+                    <Button Grid.Column="0" Content="Вход" Cursor="Hand" Style="{StaticResource HeadLink}" Foreground="#fafafa" Margin="0, 0, 20, 0" Click="LogIn_Click"></Button>
+                    <Button Grid.Column="0" Content="Регистрация" Cursor="Hand" Style="{StaticResource HeadLink}" Foreground="#F7D7AE" Click="SignUp_Click"></Button>
+                </StackPanel>
+                <StackPanel x:Name="UserStackPanel" Grid.Column="2" Orientation="Horizontal" Visibility="Collapsed" VerticalAlignment="Center" HorizontalAlignment="Right">
+                    <TextBlock x:Name="NameUser" Grid.Column="0" Text="Lorem" Style="{StaticResource Text}" Margin="0, 0, 20, 0"></TextBlock>
+                    <Rectangle Height="20" Width="1" Fill="#fafafa" Margin="0, 0, 20, 0"></Rectangle>
+                    <Button x:Name="AdminPanelButton" Grid.Column="0" Cursor="Hand" Visibility="Collapsed" Content="Панель администратора" Style="{StaticResource HeadLink}" Foreground="#F7D7AE" Margin="0, 0, 20, 0" Click="AdminPanel_Click"></Button>
+                    <Button Grid.Column="0" Content="Выход" Cursor="Hand" Style="{StaticResource HeadLink}" Foreground="#F7D7AE" Click="Exit_Click"></Button>
+                </StackPanel>
+            </Grid>
+            <Rectangle Height="1" Fill="#fafafa" Margin="0, 10 0, 0"></Rectangle>
+        </StackPanel>
     </Grid>
 </Window>

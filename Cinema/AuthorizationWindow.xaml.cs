@@ -64,6 +64,7 @@ namespace Cinema
             Base.Client User = DataBase.Client.SingleOrDefault(U => U.name == LoginText.Text && U.password == PasswordText.Text);
             if (User != null)
             {
+                MainWindow.client = User;
                 ChangeWindow("MainWindow");
             }
             else
