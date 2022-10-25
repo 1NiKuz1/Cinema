@@ -40,7 +40,32 @@ namespace Cinema
             {
                 ShowUserStackPanel();
             }
-            
+
+            List<DateItem> items = GenerateDateList();
+            DateList.ItemsSource = items;
+        }
+
+        public class DateItem
+        {
+            public string DayOfWeek { get; set; }
+            public string Day { get; set; }
+            public string Month { get; set; }
+        }
+
+        private List<DateItem> GenerateDateList()
+        {
+            DateTime dateTime = DateTime.Today;
+            List<DateItem> items = new List<DateItem>();
+            for (int i = 0; i < 7; i++)
+            {
+                string dayOfWeek = dateTime.ToString("dddd");
+                dayOfWeek = dayOfWeek.Substring(0, 1).ToUpper() + dayOfWeek.Substring(1);
+                string month = dateTime.ToString("MMMM");
+                string day = dateTime.Day.ToString();
+                items.Add(new DateItem() { DayOfWeek = dayOfWeek, Day = day, Month = month });
+                dateTime = dateTime.AddDays(1);
+            } 
+            return items;
         }
 
         private void ChangeWindow(string nameWindow)

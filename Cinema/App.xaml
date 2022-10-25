@@ -7,7 +7,21 @@
         <!--StartupUri="MainWindow.xaml"-->
         <!--StartupUri="RegistrationWindow.xaml"-->
         <!--StartupUri="AuthorizationWindow.xaml"-->
-        
+
+        <Style x:Key="DateText">
+            <Setter Property="Control.FontFamily" Value="Roboto" />
+            <Setter Property="Control.FontSize" Value="12" />
+            <Setter Property="Control.FontWeight" Value="Regular"/>
+            <Setter Property="Control.Foreground" Value="#fafafa"/>
+        </Style>
+
+        <Style x:Key="DateDayText">
+            <Setter Property="Control.FontFamily" Value="Roboto" />
+            <Setter Property="Control.FontSize" Value="32" />
+            <Setter Property="Control.FontWeight" Value="Bold"/>
+            <Setter Property="Control.Foreground" Value="#fafafa"/>
+        </Style>
+
         <Style x:Key="Logo">
             <Setter Property="Control.FontFamily" Value="Truculenta" />
             <Setter Property="Control.FontSize" Value="52" />
