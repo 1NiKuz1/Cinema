@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище cinemaModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище cinemaModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Booking">
           <Key>
             <PropertyRef Name="idBooking" />
@@ -40,6 +40,9 @@
           <Property Name="idMovie" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="movieName" Type="nvarchar" MaxLength="250" Nullable="false" />
           <Property Name="duration" Type="int" />
+          <Property Name="ageRestriction" Type="int" />
+          <Property Name="tags" Type="nvarchar" MaxLength="500" />
+          <Property Name="screen" Type="image" />
         </EntityType>
         <EntityType Name="Seat">
           <Key>
@@ -47,11 +50,9 @@
           </Key>
           <Property Name="idSeat" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="idHall" Type="int" Nullable="false" />
-          <Property Name="status" Type="bit" Nullable="false" />
           <Property Name="seatNumber" Type="int" Nullable="false" />
           <Property Name="rowNumber" Type="int" Nullable="false" />
           <Property Name="type" Type="bit" Nullable="false" />
-          <Property Name="sofaNumber" Type="int" />
         </EntityType>
         <EntityType Name="Session">
           <Key>
@@ -61,8 +62,8 @@
           <Property Name="dateSession" Type="date" Nullable="false" />
           <Property Name="sessionTime" Type="time" Precision="7" Nullable="false" />
           <Property Name="idMovie" Type="int" Nullable="false" />
-          <Property Name="costPerChair" Type="int" />
-          <Property Name="costPerSofa" Type="int" />
+          <Property Name="costPerChair" Type="int" Nullable="false" />
+          <Property Name="costPerSofa" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -163,8 +164,7 @@
             <End Role="Session" EntitySet="Session" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="cinemaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -209,6 +209,9 @@
           <Property Name="movieName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="duration" Type="Int32" />
           <NavigationProperty Name="Session" Relationship="Self.FK_Session_Movie" FromRole="Movie" ToRole="Session" />
+          <Property Name="ageRestriction" Type="Int32" />
+          <Property Name="tags" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="screen" Type="Binary" />
         </EntityType>
         <EntityType Name="Seat">
           <Key>
@@ -216,11 +219,9 @@
           </Key>
           <Property Name="idSeat" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="idHall" Type="Int32" Nullable="false" />
-          <Property Name="status" Type="Boolean" Nullable="false" />
           <Property Name="seatNumber" Type="Int32" Nullable="false" />
           <Property Name="rowNumber" Type="Int32" Nullable="false" />
           <Property Name="type" Type="Boolean" Nullable="false" />
-          <Property Name="sofaNumber" Type="Int32" />
           <NavigationProperty Name="Booking" Relationship="Self.FK_Booking_Seat" FromRole="Seat" ToRole="Booking" />
           <NavigationProperty Name="Hall" Relationship="Self.FK_Seat_Hall" FromRole="Seat" ToRole="Hall" />
         </EntityType>
@@ -232,8 +233,8 @@
           <Property Name="dateSession" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="sessionTime" Type="Time" Nullable="false" Precision="7" />
           <Property Name="idMovie" Type="Int32" Nullable="false" />
-          <Property Name="costPerChair" Type="Int32" />
-          <Property Name="costPerSofa" Type="Int32" />
+          <Property Name="costPerChair" Type="Int32" Nullable="false" />
+          <Property Name="costPerSofa" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Booking" Relationship="Self.FK_Booking_Session" FromRole="Session" ToRole="Booking" />
           <NavigationProperty Name="Movie" Relationship="Self.FK_Session_Movie" FromRole="Session" ToRole="Movie" />
         </EntityType>
@@ -376,6 +377,9 @@
           <EntitySetMapping Name="Movie">
             <EntityTypeMapping TypeName="cinemaModel.Movie">
               <MappingFragment StoreEntitySet="Movie">
+                <ScalarProperty Name="screen" ColumnName="screen" />
+                <ScalarProperty Name="tags" ColumnName="tags" />
+                <ScalarProperty Name="ageRestriction" ColumnName="ageRestriction" />
                 <ScalarProperty Name="idMovie" ColumnName="idMovie" />
                 <ScalarProperty Name="movieName" ColumnName="movieName" />
                 <ScalarProperty Name="duration" ColumnName="duration" />
@@ -387,11 +391,9 @@
               <MappingFragment StoreEntitySet="Seat">
                 <ScalarProperty Name="idSeat" ColumnName="idSeat" />
                 <ScalarProperty Name="idHall" ColumnName="idHall" />
-                <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="seatNumber" ColumnName="seatNumber" />
                 <ScalarProperty Name="rowNumber" ColumnName="rowNumber" />
                 <ScalarProperty Name="type" ColumnName="type" />
-                <ScalarProperty Name="sofaNumber" ColumnName="sofaNumber" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

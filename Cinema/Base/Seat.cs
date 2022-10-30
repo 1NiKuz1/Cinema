@@ -22,11 +22,9 @@ namespace Cinema.Base
     
         public int idSeat { get; set; }
         public int idHall { get; set; }
-        public bool status { get; set; }
         public int seatNumber { get; set; }
         public int rowNumber { get; set; }
         public bool type { get; set; }
-        public Nullable<int> sofaNumber { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Booking> Booking { get; set; }

@@ -24,8 +24,8 @@ namespace Cinema.Base
         public System.DateTime dateSession { get; set; }
         public System.TimeSpan sessionTime { get; set; }
         public int idMovie { get; set; }
-        public Nullable<int> costPerChair { get; set; }
-        public Nullable<int> costPerSofa { get; set; }
+        public int costPerChair { get; set; }
+        public int costPerSofa { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Booking> Booking { get; set; }

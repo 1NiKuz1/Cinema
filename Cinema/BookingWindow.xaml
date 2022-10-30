@@ -1,0 +1,56 @@
+﻿<Window x:Class="Cinema.BookingWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Cinema"
+        mc:Ignorable="d"
+        Title="BookingWindow" Background="#060722" MinHeight="700" MinWidth="900">
+    <Grid x:Name="MainGrid" Margin="100, 50, 100, 0">
+        <StackPanel>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Margin="0,0,0,50">
+                    <TextBlock Text="Love Cinema" Style="{StaticResource Logo}"></TextBlock>
+                    <Rectangle Height="1" Fill="#fafafa" Margin="0, 20 0, 0"></Rectangle>
+                </StackPanel>
+                <StackPanel Grid.Row="1" Margin="0,0,0,40">
+                    <TextBox x:Name="PhoneNumberTextBox" TabIndex="0" BorderThickness="3" Style="{StaticResource placeHolder}" Tag="Ваше номер телефона..." Margin="0, 0, 0, 30" />
+                    <StackPanel Background="#fafafa">
+                        <StackPanel Margin="30">
+                            <TextBlock x:Name="SuccessText" Text="Спасибо за бронь" FontSize="32" Foreground="#060722" Margin="0, 0, 0, 20" Visibility="Collapsed"/>
+                            <TextBlock Text="Выбранное место" FontSize="20" Foreground="#060722" Margin="0, 0, 0, 10"/>
+                            <TextBlock x:Name="SeatNumberText" Text="Место: " FontSize="16" Foreground="#060722"/>
+                            <TextBlock x:Name="RowNumberText" Text="Ряд: " FontSize="16" Foreground="#060722" Margin="0, 0, 0, 10"/>
+                            <TextBlock x:Name="PriceOfSeatText" Text="Итого: " FontSize="16" Foreground="#D75E55"/>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="BookingButton" Grid.Column="0" Cursor="Hand" TabIndex="2" Content="Забронировать" Padding="40, 20, 40, 20"
+                        Click="BookingButton_Click" Style="{StaticResource PrimeButton}">
+                    </Button>
+                    <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="20, 0, 20, 0">
+                        <Rectangle Width="30" Height="3" RadiusX="1" RadiusY="1" Fill="#fafafa"></Rectangle>
+                    </StackPanel>
+                    <Button x:Name="BuyButton" Grid.Column="2" TabIndex="3" Cursor="Hand" Content="Купить" Padding="40, 20, 40, 20"
+                        Click="BuyButton_Click" Style="{StaticResource DarkPrimeButton}">
+                    </Button>
+                    <Button x:Name="BackHome" Grid.Column="3" TabIndex="4" Cursor="Hand" Content="Главная страница" Padding="40, 20, 40, 20" HorizontalAlignment="Right"
+                            Click="BackHome_Click" Style="{StaticResource PrimeButton}">
+                    </Button>
+                </Grid>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -23,6 +23,9 @@ namespace Cinema.Base
         public int idMovie { get; set; }
         public string movieName { get; set; }
         public Nullable<int> duration { get; set; }
+        public Nullable<int> ageRestriction { get; set; }
+        public string tags { get; set; }
+        public byte[] screen { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Session> Session { get; set; }
