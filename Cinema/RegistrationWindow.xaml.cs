@@ -21,44 +21,10 @@ namespace Cinema
     /// </summary>
     public partial class RegistrationWindow : Window
     {
-        private Base.cinemaEntities DataBase;
 
-        public RegistrationWindow(Base.cinemaEntities Database)
+        public RegistrationWindow()
         {
             InitializeComponent();
-            this.DataBase = Database;
-        }
-
-        private void ChangeWindow(string nameWindow)
-        {
-            switch (nameWindow)
-            {
-                case "MainWindow":
-                    MainWindow mainWindow = new MainWindow();
-                    Hide();
-                    mainWindow.ShowDialog();
-                    Close();
-                    break;
-                case "AuthorizationWindow":
-                    AuthorizationWindow authorizationWindow = new AuthorizationWindow();
-                    Hide();
-                    authorizationWindow.ShowDialog();
-                    Close();
-                    break;
-            }
-        }
-        private Boolean CheckPassword(String pas)
-        {
-            string pattern = @"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,24}$";
-            Regex regex = new Regex(pattern);
-            return regex.IsMatch(pas);         
-        }
-
-        private Boolean CheckPhoneNumber(String phoneNumber)
-        {
-            string pattern = @"^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$";
-            Regex regex = new Regex(pattern);
-            return regex.IsMatch(phoneNumber);
         }
 
         private void ShowAnotherGrid(Grid showGrid, Grid hideGrid)
@@ -105,21 +71,20 @@ namespace Cinema
                 password = PasswordBox.Password != "" ? PasswordBox.Password : PasswordTextBox.Text
             };
             // Добавление его в базу данных
-            DataBase.Client.Add(client);
+            SourceCore.MyBase.Client.Add(client);
             // Сохранение изменений
-            DataBase.SaveChanges();
+            SourceCore.MyBase.SaveChanges();
 
             MainWindow.client = client;
 
-            ChangeWindow("MainWindow");
+            WindowManager.ChangeWindow("MainWindow", this);
         }
-
 
         private void RegistrationCommit_Click(object sender, RoutedEventArgs e)
         {
 
             // Создание и инициализация нового пользователя системы
-            Boolean isPassword = PasswordBox.Password != "" ? CheckPassword(PasswordBox.Password) : CheckPassword(PasswordTextBox.Text);
+            Boolean isPassword = PasswordBox.Password != "" ? DataValidation.CheckPassword(PasswordBox.Password) : DataValidation.CheckPassword(PasswordTextBox.Text);
             
 
             if (!isPassword)
@@ -128,7 +93,7 @@ namespace Cinema
                 return;
             }
 
-            if (!CheckPhoneNumber(PhoneNumberText.Text))
+            if (!DataValidation.CheckPhoneNumber(PhoneNumberText.Text))
             {
                 MessageBox.Show("Неверный формат номера телефона, попробуйте еще раз", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
@@ -141,12 +106,12 @@ namespace Cinema
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            ChangeWindow("AuthorizationWindow");
+            WindowManager.ChangeWindow("AuthorizationWindow", this);
         }
 
         private void BackHome_Click(object sender, RoutedEventArgs e)
         {
-            ChangeWindow("MainWindow");
+            WindowManager.ChangeWindow("MainWindow", this);
         }
 
         private void PasswordButton_Click(object sender, RoutedEventArgs e)

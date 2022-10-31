@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Cinema"
         mc:Ignorable="d"
-        Title="MainWindow" Background="#060722" Height="640" Width="1000">
+        Title="MainWindow" Background="#060722" MinHeight="640" MinWidth="900">
     <Grid x:Name="MainGrid" Margin="20, 20, 20, 0">
         <StackPanel MaxWidth="840">
             <Grid>
@@ -28,13 +28,13 @@
             </Grid>
             <Rectangle Height="1" Fill="#fafafa" Margin="0, 10 0, 10"></Rectangle>
             <Grid>
-                <ListBox Name="DateList" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Background="Transparent" BorderThickness="0" SelectionChanged="DateList_SelectionChanged">
+                <ListBox Name="DateList" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Background="Transparent" BorderThickness="0" SelectionChanged="DateList_SelectionChanged" HorizontalAlignment="Center">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <DockPanel>
                                 <Border CornerRadius="6" BorderBrush="#fafafa" Background="Transparent" BorderThickness="1.2" DockPanel.Dock="Top">
-                                    <StackPanel Width="100" Height="90" VerticalAlignment="Center">
-                                        <TextBlock Text="{Binding DayOfWeek}" Style="{StaticResource DateText}" TextAlignment="Center" />
+                                    <StackPanel Width="100" Height="90">
+                                        <TextBlock Text="{Binding DayOfWeek}" Style="{StaticResource DateText}" Margin="0, 6, 0, 0" TextAlignment="Center" />
                                         <TextBlock Text="{Binding Day}" Style="{StaticResource DateDayText}" TextAlignment="Center" />
                                         <TextBlock Text="{Binding Month}" Style="{StaticResource DateText}" TextAlignment="Center" />
                                     </StackPanel>
@@ -63,15 +63,24 @@
                                     <ColumnDefinition Width="143"/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
-                                <StackPanel Grid.Column="0">
-                                    <Image Width="123" Height="176" Source="{Binding Path=ImagePath}" />
-                                    <TextBlock FontSize="14" Foreground="#fafafa" Text="{Binding Path=TimeAndPrice}" HorizontalAlignment="Center" />
+                                <StackPanel Grid.Column="0" Margin="0, 0, 20, 0">
+                                    <Border Background="#fafafa" CornerRadius="5" Margin="0, 0, 0, 10">
+                                        <Image Width="123" Height="176" Source="{Binding Path=ImagePath}" />
+                                    </Border>
+                                    
+                                    <Border Padding="10" Background="#fafafa" CornerRadius="5">
+                                        <TextBlock HorizontalAlignment="Center" FontSize="14" FontWeight="Medium" Foreground="#060722">
+                                            <TextBlock FontSize="14" FontWeight="Medium" Foreground="#060722" Text="{Binding Path=Time}" />
+                                            <TextBlock FontSize="14" FontWeight="Medium" Foreground="#060722" Text="{Binding Path=ChairPrice}"/> руб
+                                        </TextBlock>
+                                    </Border>
+                                    
                                 </StackPanel>
                                 <StackPanel Grid.Column="1">
-                                    <TextBlock FontSize="14" Foreground="#fafafa" Text="{Binding Path=MovieName}" />
-                                    <TextBlock FontSize="14" Foreground="#fafafa" Text="{Binding Path=AgeRestriction}" />
-                                    <TextBlock FontSize="14" Foreground="#fafafa" Text="{Binding Path=Duration}" />
-                                    <TextBlock FontSize="14" Foreground="#fafafa" Text="{Binding Path=Tags}" />
+                                    <TextBlock FontSize="24" Foreground="#F7D7AE" TextWrapping="Wrap" Margin="0, 0, 0, 10" Text="{Binding Path=MovieName}" />
+                                    <TextBlock FontSize="16" Foreground="#fafafa" TextWrapping="Wrap" Text="Возрастное ограничение: " ><TextBlock FontSize="16" Foreground="#D75E55" Text="{Binding Path=AgeRestriction}" /></TextBlock>
+                                    <TextBlock FontSize="16" Foreground="#fafafa" TextWrapping="Wrap" Text="Длительность: " ><TextBlock FontSize="16" Foreground="#D75E55" Text="{Binding Path=Duration}" /></TextBlock>
+                                    <TextBlock FontSize="16" Foreground="#fafafa" TextWrapping="Wrap" Text="{Binding Path=Tags}" />
                                 </StackPanel>
                             </Grid>
                         </DataTemplate>
@@ -84,10 +93,10 @@
                 </ListBox>
                 <StackPanel x:Name="HallPanel" Grid.Column="1" Visibility="Collapsed">
                     <Rectangle Width="410" Height="10" Fill="#FAFAFA" Margin="0, 0, 0, 40"></Rectangle>
-                    <ListBox Name="SeatList" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Background="Transparent" BorderThickness="0" SelectionChanged="SeatList_SelectionChanged">
+                    <ListBox Name="SeatList" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Background="Transparent" BorderThickness="0" SelectionChanged="SeatList_SelectionChanged" HorizontalAlignment="Center">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <Rectangle Width="{Binding Path=SeatWidth}" Height="{Binding Path=SeatHeight}" Fill="{Binding Path=SeatFill}"></Rectangle>
+                                <Rectangle Width="{Binding Path=SeatWidth}" Height="{Binding Path=SeatHeight}" Fill="{Binding Path=SeatFill}" Margin="0, 0, 0, 4"></Rectangle>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                         <ListBox.ItemsPanel>

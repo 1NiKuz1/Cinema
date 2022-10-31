@@ -19,53 +19,25 @@ namespace Cinema
     /// </summary>
     public partial class AuthorizationWindow : Window
     {
-        private Base.cinemaEntities DataBase;
         public AuthorizationWindow()
         {
             InitializeComponent();
-            try
-            {
-                DataBase = new Base.cinemaEntities();
-            }
-            catch
-            {
-                MessageBox.Show("Не удалось подключиться к базе данных. Проверьте настройки подключения приложения.",
-                    "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Warning);
-                Close();
-            }
         }
 
-        private void ChangeWindow(string nameWindow)
-        {
-            switch (nameWindow)
-            {
-                case "MainWindow":
-                    MainWindow mainWindow = new MainWindow();
-                    Hide();
-                    mainWindow.ShowDialog();
-                    Close();
-                    break;
-                case "RegistrationWindow":
-                    RegistrationWindow registrationWindow = new RegistrationWindow(DataBase);
-                    Hide();
-                    registrationWindow.ShowDialog();
-                    Close();
-                    break;
-            }
-        }
+        
 
         private void BackHome_Click(object sender, RoutedEventArgs e)
         {
-            ChangeWindow("MainWindow");
+            WindowManager.ChangeWindow("MainWindow", this);
         }
 
         private void AuthorizationCommit_Click(object sender, RoutedEventArgs e)
         {
-            Base.Client User = DataBase.Client.SingleOrDefault(U => U.name == LoginText.Text && U.password == PasswordText.Text);
+            Base.Client User = SourceCore.MyBase.Client.SingleOrDefault(U => U.name == LoginText.Text && U.password == PasswordText.Text);
             if (User != null)
             {
                 MainWindow.client = User;
-                ChangeWindow("MainWindow");
+                WindowManager.ChangeWindow("MainWindow", this);
             }
             else
             {
@@ -75,7 +47,7 @@ namespace Cinema
 
         private void RegistrationButton_Click(object sender, RoutedEventArgs e)
         {
-            ChangeWindow("RegistrationWindow");
+            WindowManager.ChangeWindow("RegistrationWindow", this);
         }
     }
 }

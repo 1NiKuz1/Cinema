@@ -14,6 +14,7 @@ namespace Cinema.ActionsWithList
         const string COLOR_FREE = "#F7D7AE";
         const string COLOR_LOCK = "#D75E55";
         public static ObservableCollection<SeatItem> sessionItems = GenerateSeatList();
+        public static SeatItem selectSeat = null;
 
         public class SeatItem
         {
@@ -21,8 +22,21 @@ namespace Cinema.ActionsWithList
             public int SeatWidth { get; set; }
             public int SeatHeight { get; set; }
             public string SeatFill { get; set; }
-
             public bool SeatStatus { get; set; }
+            public bool SeatType { get; set; }
+            public int SeatNumber { get; set; }
+            public int RowNumber { get; set; }
+        }
+
+        public static void SetSelectSeat(object selectItem)
+        {
+            selectSeat = (SeatItem)selectItem;
+        }
+
+        public static bool StatusCheck(object selectItem)
+        {
+            selectSeat = (SeatItem)selectItem;
+            return selectSeat.SeatStatus;
         }
         public static ObservableCollection<SeatItem> FilterLockAndFreeSeatList(object itemSession)
         {
@@ -42,7 +56,16 @@ namespace Cinema.ActionsWithList
                         color = COLOR_LOCK;
                     }
                 }
-                items.Add(new SeatItem() { IdSeat = item.idSeat, SeatWidth = width, SeatHeight = SIZE_SEAT, SeatFill = color, SeatStatus = status });
+                items.Add(new SeatItem() {
+                    IdSeat = item.idSeat,
+                    SeatWidth = width,
+                    SeatHeight = SIZE_SEAT,
+                    SeatFill = color,
+                    SeatStatus = status,
+                    SeatType = item.type,
+                    SeatNumber = item.seatNumber,
+                    RowNumber = item.rowNumber
+                });
             }
             return items;
         }
@@ -54,7 +77,16 @@ namespace Cinema.ActionsWithList
             foreach (Base.Seat item in seats)
             {
                 int width = item.type ? SIZE_SEAT * 3 : SIZE_SEAT;
-                items.Add(new SeatItem() { IdSeat = item.idSeat, SeatWidth = width, SeatHeight = SIZE_SEAT, SeatFill = COLOR_FREE, SeatStatus = true });
+                items.Add(new SeatItem() {
+                    IdSeat = item.idSeat,
+                    SeatWidth = width,
+                    SeatHeight = SIZE_SEAT,
+                    SeatFill = COLOR_FREE,
+                    SeatStatus = true,
+                    SeatType = item.type,
+                    SeatNumber = item.seatNumber,
+                    RowNumber = item.rowNumber,
+                });
             }
             return items;
         }

@@ -37,25 +37,6 @@ namespace Cinema
             //ActionsWithPictures.PutImageBase64InDb("movie_2.jpg", 2);
         }
 
-        private void ChangeWindow(string nameWindow)
-        {
-            switch (nameWindow)
-            {
-                case "AuthorizationWindow":
-                    AuthorizationWindow authorizationWindow = new AuthorizationWindow();
-                    Hide();
-                    authorizationWindow.ShowDialog();
-                    Close();
-                    break;
-                case "RegistrationWindow":
-                    RegistrationWindow registrationWindow = new RegistrationWindow(SourceCore.MyBase);
-                    Hide();
-                    registrationWindow.ShowDialog();
-                    Close();
-                    break;
-            }
-        }
-
         private void ShowUserStackPanel()
         {
             UserStackPanel.Visibility = Visibility.Visible;
@@ -67,12 +48,12 @@ namespace Cinema
 
         private void LogIn_Click(object sender, RoutedEventArgs e)
         {
-            ChangeWindow("AuthorizationWindow");
+            WindowManager.ChangeWindow("AuthorizationWindow", this);
         }
 
         private void SignUp_Click(object sender, RoutedEventArgs e)
         {
-            ChangeWindow("RegistrationWindow");
+            WindowManager.ChangeWindow("RegistrationWindow", this);
         }
 
         private void Exit_Click(object sender, RoutedEventArgs e)
@@ -98,6 +79,7 @@ namespace Cinema
             {
                 HallPanel.Visibility = Visibility.Visible;
                 SeatList.ItemsSource = ActionsWithSeatItems.FilterLockAndFreeSeatList(SessionList.SelectedItem);
+                ActionsWithSessionItems.SetSelectSession(SessionList.SelectedItem);
             }
             else
             {
@@ -108,7 +90,9 @@ namespace Cinema
 
         private void SeatList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            if (!ActionsWithSeatItems.StatusCheck(SeatList.SelectedItem)) return;
+            ActionsWithSeatItems.SetSelectSeat(SeatList.SelectedItem);
+            WindowManager.ChangeWindow("BookingWindow", this);
         }
     }
 }

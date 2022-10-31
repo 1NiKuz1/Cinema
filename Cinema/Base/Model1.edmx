@@ -11,9 +11,10 @@
           </Key>
           <Property Name="idBooking" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Status" Type="bit" Nullable="false" />
-          <Property Name="idClient" Type="int" Nullable="false" />
+          <Property Name="idClient" Type="int" />
           <Property Name="idSession" Type="int" Nullable="false" />
           <Property Name="idSeat" Type="int" Nullable="false" />
+          <Property Name="codeToCheck" Type="int" />
         </EntityType>
         <EntityType Name="Client">
           <Key>
@@ -76,7 +77,7 @@
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <Association Name="FK_Booking_Client">
-          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
           <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Client">
@@ -174,12 +175,13 @@
           </Key>
           <Property Name="idBooking" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Status" Type="Boolean" Nullable="false" />
-          <Property Name="idClient" Type="Int32" Nullable="false" />
+          <Property Name="idClient" Type="Int32" />
           <Property Name="idSession" Type="Int32" Nullable="false" />
           <Property Name="idSeat" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Client" Relationship="Self.FK_Booking_Client" FromRole="Booking" ToRole="Client" />
           <NavigationProperty Name="Seat" Relationship="Self.FK_Booking_Seat" FromRole="Booking" ToRole="Seat" />
           <NavigationProperty Name="Session" Relationship="Self.FK_Booking_Session" FromRole="Booking" ToRole="Session" />
+          <Property Name="codeToCheck" Type="Int32" />
+          <NavigationProperty Name="Client" Relationship="cinemaModel.FK_Booking_Client" FromRole="Booking" ToRole="Client" />
         </EntityType>
         <EntityType Name="Client">
           <Key>
@@ -190,7 +192,7 @@
           <Property Name="phoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="isAdmin" Type="Boolean" Nullable="false" />
           <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Booking" Relationship="Self.FK_Booking_Client" FromRole="Client" ToRole="Booking" />
+          <NavigationProperty Name="Booking" Relationship="cinemaModel.FK_Booking_Client" FromRole="Client" ToRole="Booking" />
         </EntityType>
         <EntityType Name="Hall">
           <Key>
@@ -211,7 +213,7 @@
           <NavigationProperty Name="Session" Relationship="Self.FK_Session_Movie" FromRole="Movie" ToRole="Session" />
           <Property Name="ageRestriction" Type="Int32" />
           <Property Name="tags" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="screen" Type="Binary" />
+          <Property Name="screen" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="Seat">
           <Key>
@@ -248,18 +250,6 @@
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
-        <Association Name="FK_Booking_Client">
-          <End Role="Client" Type="Self.Client" Multiplicity="1" />
-          <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Client">
-              <PropertyRef Name="idClient" />
-            </Principal>
-            <Dependent Role="Booking">
-              <PropertyRef Name="idClient" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Booking_Seat">
           <End Role="Seat" Type="Self.Seat" Multiplicity="1" />
           <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
@@ -316,10 +306,6 @@
           <EntitySet Name="Seat" EntityType="Self.Seat" />
           <EntitySet Name="Session" EntityType="Self.Session" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
-          <AssociationSet Name="FK_Booking_Client" Association="Self.FK_Booking_Client">
-            <End Role="Client" EntitySet="Client" />
-            <End Role="Booking" EntitySet="Booking" />
-          </AssociationSet>
           <AssociationSet Name="FK_Booking_Seat" Association="Self.FK_Booking_Seat">
             <End Role="Seat" EntitySet="Seat" />
             <End Role="Booking" EntitySet="Booking" />
@@ -336,7 +322,23 @@
             <End Role="Movie" EntitySet="Movie" />
             <End Role="Session" EntitySet="Session" />
           </AssociationSet>
+          <AssociationSet Name="FK_Booking_Client" Association="cinemaModel.FK_Booking_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Booking" EntitySet="Booking" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK_Booking_Client">
+          <End Type="cinemaModel.Client" Role="Client" Multiplicity="0..1" />
+          <End Type="cinemaModel.Booking" Role="Booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="idClient" />
+            </Principal>
+            <Dependent Role="Booking">
+              <PropertyRef Name="idClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -346,6 +348,7 @@
           <EntitySetMapping Name="Booking">
             <EntityTypeMapping TypeName="cinemaModel.Booking">
               <MappingFragment StoreEntitySet="Booking">
+                <ScalarProperty Name="codeToCheck" ColumnName="codeToCheck" />
                 <ScalarProperty Name="idBooking" ColumnName="idBooking" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="idClient" ColumnName="idClient" />

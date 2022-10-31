@@ -20,7 +20,8 @@ namespace Cinema.ActionsWithList
 
         private static List<DateItem> GenerateDateList()
         {
-            DateTime dateTime = DateTime.Today;
+            //DateTime dateTime = DateTime.Today;
+            DateTime dateTime = new DateTime(2022, 10, 29);
             List<DateItem> items = new List<DateItem>();
             for (int i = 0; i < 7; i++)
             {

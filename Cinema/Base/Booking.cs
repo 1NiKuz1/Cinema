@@ -16,12 +16,13 @@ namespace Cinema.Base
     {
         public int idBooking { get; set; }
         public bool Status { get; set; }
-        public int idClient { get; set; }
+        public Nullable<int> idClient { get; set; }
         public int idSession { get; set; }
         public int idSeat { get; set; }
+        public Nullable<int> codeToCheck { get; set; }
     
-        public virtual Client Client { get; set; }
         public virtual Seat Seat { get; set; }
         public virtual Session Session { get; set; }
+        public virtual Client Client { get; set; }
     }
 }
