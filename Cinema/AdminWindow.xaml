@@ -1,0 +1,34 @@
+﻿<Window x:Class="Cinema.AdminWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Cinema"
+        mc:Ignorable="d"
+        Title="AdminWindow" Height="600" Width="1000" MinHeight="270" MinWidth="610" Background="#060722"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="160" MinWidth="140" MaxWidth="250"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*" MinWidth="300"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Column="0" Grid.RowSpan="2"  >
+            <TextBlock Grid.Column="0" Text="Love Cinema" Style="{StaticResource SmallLogo}" HorizontalAlignment="Center" Margin="0, 20, 0, 20"></TextBlock>
+            <Label Content="Администратор" Foreground="#fafafa"
+          FontWeight="Medium" FontSize="16" HorizontalContentAlignment="Center" Margin="0, 0, 0, 10"/>
+            <Button x:Name="MovieButton" Content="Фильмы" Style="{StaticResource AdminButton}"  Margin="5" Click="MovieButton_Click"/>
+            <Button x:Name="SessionButton" Content="Сеансы" Style="{StaticResource AdminButton}" Margin="5" Click="SessionButton_Click"/>
+            <Button x:Name="BookingButton" Content="Брони" Style="{StaticResource AdminButton}" Margin="5" Click="BookingButton_Click"/>
+            <Button x:Name="ClientButton" Content="Пользователи" Style="{StaticResource AdminButton}" Margin="5,5,5,20" Click="ClientButton_Click"/>
+            <Button x:Name="BackHomeButton" Content="Главное меню" Style="{StaticResource AdminButtonDark}" Margin="5" Click="BackHomeButton_Click" />
+        </StackPanel>
+
+        <GridSplitter Grid.Column="1"  Grid.RowSpan="2" Background="#fafafa"
+              Width="3" HorizontalAlignment="Stretch" />
+
+        <Frame x:Name="RootFrame" Grid.Column="2" Grid.Row="0" NavigationUIVisibility="Hidden"/>
+
+    </Grid>
+</Window>

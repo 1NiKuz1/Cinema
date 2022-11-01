@@ -64,10 +64,14 @@
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
                                 <StackPanel Grid.Column="0" Margin="0, 0, 20, 0">
-                                    <Border Background="#fafafa" CornerRadius="5" Margin="0, 0, 0, 10">
-                                        <Image Width="123" Height="176" Source="{Binding Path=ImagePath}" />
-                                    </Border>
                                     
+                                    <Image Width="123" Height="176" Stretch="UniformToFill" Margin="0, 0, 0, 10"
+                                        Source="{Binding Path=ImagePath}">
+                                        <Image.Clip>
+                                            <RectangleGeometry RadiusX="5" RadiusY="5" Rect="0, 0, 123, 176"/>
+                                        </Image.Clip>
+                                    </Image>
+
                                     <Border Padding="10" Background="#fafafa" CornerRadius="5">
                                         <TextBlock HorizontalAlignment="Center" FontSize="14" FontWeight="Medium" Foreground="#060722">
                                             <TextBlock FontSize="14" FontWeight="Medium" Foreground="#060722" Text="{Binding Path=Time}" />

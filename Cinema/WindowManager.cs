@@ -37,6 +37,12 @@ namespace Cinema
                     bookingWindow.ShowDialog();
                     currentWindow.Close();
                     break;
+                case "AdminWindow":
+                    AdminWindow adminWindow = new AdminWindow();
+                    currentWindow.Hide();
+                    adminWindow.ShowDialog();
+                    currentWindow.Close();
+                    break;
             }
         }
     }
