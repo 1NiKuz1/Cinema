@@ -48,7 +48,7 @@ namespace Cinema
 
         public static void GetBase64ImageFromDb(int id)
         {
-            //if (File.Exists($"{pathImages}movie{id}.jpg")) return;
+            if (File.Exists($"{pathImages}movie_{id}.jpg")) return;
             List<byte[]> iScreen = new List<byte[]>(); // сделав запрос к БД мы получим множество строк в ответе, поэтому мы их сможем загнать в массив/List
             using (SqlConnection sqlConnection = new SqlConnection(@"data source=NIKUZ;initial catalog=cinema;integrated security=True"))
             {

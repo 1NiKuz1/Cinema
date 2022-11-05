@@ -31,7 +31,7 @@ namespace Cinema
 
         private void SessionButton_Click(object sender, RoutedEventArgs e)
         {
-
+            RootFrame.Navigate(new AdminPages.SessionPage());
         }
 
         private void BookingButton_Click(object sender, RoutedEventArgs e)

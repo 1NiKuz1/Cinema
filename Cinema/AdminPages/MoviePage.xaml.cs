@@ -50,7 +50,7 @@ namespace Cinema.AdminPages
             }
         }
 
-        public void UpdateGrid(Base.Movie Movie)
+        private void UpdateGrid(Base.Movie Movie)
         {
             if ((Movie == null) && (PageGrid.ItemsSource != null))
             {
@@ -63,7 +63,7 @@ namespace Cinema.AdminPages
 
 
 
-        public void DlgLoad(bool b, string DlgModeContent)
+        private void DlgLoad(bool b, string DlgModeContent)
         {
             if (b == true)
             {
@@ -88,6 +88,14 @@ namespace Cinema.AdminPages
             }
         }
 
+        private void FillTextBox()
+        {
+            RecordTextMovieName.Text = SelectedItem.movieName;
+            RecordTextDuration.Text = SelectedItem.duration.ToString();
+            RecordAgeRestriction.Text = SelectedItem.ageRestriction.ToString();
+            RecordTextTags.Text = SelectedItem.tags;
+        }
+
         private void RecordAdd_Click(object sender, RoutedEventArgs e)
         {
             DlgLoad(true, "Добавить");
@@ -101,10 +109,7 @@ namespace Cinema.AdminPages
             {
                 DlgLoad(true, "Копировать");
                 SelectedItem = (Base.Movie)PageGrid.SelectedItem;
-                RecordTextMovieName.Text = SelectedItem.movieName;
-                RecordTextDuration.Text = SelectedItem.duration.ToString();
-                RecordAgeRestriction.Text = SelectedItem.ageRestriction.ToString();
-                RecordTextTags.Text = SelectedItem.tags;
+                FillTextBox();
                 DlgMode = 0;
             }
             else
@@ -119,10 +124,7 @@ namespace Cinema.AdminPages
             {
                 DlgLoad(true, "Изменить");
                 SelectedItem = (Base.Movie)PageGrid.SelectedItem;
-                RecordTextMovieName.Text = SelectedItem.movieName;
-                RecordTextDuration.Text = SelectedItem.duration.ToString();
-                RecordAgeRestriction.Text = SelectedItem.ageRestriction.ToString();
-                RecordTextTags.Text = SelectedItem.tags;
+                FillTextBox();
             }
             else
             {

@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Cinema"
         mc:Ignorable="d"
-        Title="MainWindow" Background="#060722" MinHeight="640" MinWidth="900">
+        Title="MainWindow" Background="#060722" WindowState="Maximized" MinHeight="640" MinWidth="900">
     <Grid x:Name="MainGrid" Margin="20, 20, 20, 0">
-        <StackPanel MaxWidth="840">
+        <StackPanel MaxWidth="1200">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
@@ -16,30 +16,28 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" Text="Love Cinema" Style="{StaticResource SmallLogo}"></TextBlock>
                 <StackPanel x:Name="NoNameStackPanel" Grid.Column="2" Orientation="Horizontal" Visibility="Visible" VerticalAlignment="Center" HorizontalAlignment="Right">
-                    <Button Grid.Column="0" Content="Вход" Cursor="Hand" Style="{StaticResource HeadLink}" Foreground="#fafafa" Margin="0, 0, 20, 0" Click="LogIn_Click"></Button>
-                    <Button Grid.Column="0" Content="Регистрация" Cursor="Hand" Style="{StaticResource HeadLink}" Foreground="#F7D7AE" Click="SignUp_Click"></Button>
+                    <Button Content="Вход" Cursor="Hand" Style="{StaticResource HeadLink}" Foreground="#fafafa" Margin="0, 0, 20, 0" Click="LogIn_Click"></Button>
+                    <Button Content="Регистрация" Cursor="Hand" Style="{StaticResource HeadLink}" Foreground="#F7D7AE" Click="SignUp_Click"></Button>
                 </StackPanel>
                 <StackPanel x:Name="UserStackPanel" Grid.Column="2" Orientation="Horizontal" Visibility="Collapsed" VerticalAlignment="Center" HorizontalAlignment="Right">
                     <TextBlock x:Name="NameUser" Grid.Column="0" Text="Lorem" Style="{StaticResource Text}" Margin="0, 0, 20, 0"></TextBlock>
                     <Rectangle Height="20" Width="1" Fill="#fafafa" Margin="0, 0, 20, 0"></Rectangle>
-                    <Button x:Name="AdminPanelButton" Grid.Column="0" Cursor="Hand" Visibility="Collapsed" Content="Панель администратора" Style="{StaticResource HeadLink}" Foreground="#F7D7AE" Margin="0, 0, 20, 0" Click="AdminPanel_Click"></Button>
+                    <Button x:Name="AdminPanelButton" Cursor="Hand" Visibility="Collapsed" Content="Панель администратора" Style="{StaticResource HeadLink}" Foreground="#F7D7AE" Margin="0, 0, 20, 0" Click="AdminPanel_Click"></Button>
                     <Button Grid.Column="0" Content="Выход" Cursor="Hand" Style="{StaticResource HeadLink}" Foreground="#F7D7AE" Click="Exit_Click"></Button>
                 </StackPanel>
             </Grid>
             <Rectangle Height="1" Fill="#fafafa" Margin="0, 10 0, 10"></Rectangle>
             <Grid>
-                <ListBox Name="DateList" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Background="Transparent" BorderThickness="0" SelectionChanged="DateList_SelectionChanged" HorizontalAlignment="Center">
+                <ListBox Name="DateList" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Background="Transparent" BorderThickness="0" SelectionChanged="DateList_SelectionChanged" HorizontalAlignment="Center" >
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <DockPanel>
-                                <Border CornerRadius="6" BorderBrush="#fafafa" Background="Transparent" BorderThickness="1.2" DockPanel.Dock="Top">
-                                    <StackPanel Width="100" Height="90">
-                                        <TextBlock Text="{Binding DayOfWeek}" Style="{StaticResource DateText}" Margin="0, 6, 0, 0" TextAlignment="Center" />
-                                        <TextBlock Text="{Binding Day}" Style="{StaticResource DateDayText}" TextAlignment="Center" />
-                                        <TextBlock Text="{Binding Month}" Style="{StaticResource DateText}" TextAlignment="Center" />
-                                    </StackPanel>
-                                </Border>
-                            </DockPanel>
+                            <Border Grid.Column="0" CornerRadius="6" BorderBrush="#fafafa" Background="Transparent" BorderThickness="1.2" >
+                                <StackPanel Width="100" Height="90" HorizontalAlignment="Stretch">
+                                    <TextBlock Text="{Binding DayOfWeek}" Style="{StaticResource DateText}" Margin="0, 6, 0, 0" TextAlignment="Center" />
+                                    <TextBlock Text="{Binding Day}" Style="{StaticResource DateDayText}" TextAlignment="Center" />
+                                    <TextBlock Text="{Binding Month}" Style="{StaticResource DateText}" TextAlignment="Center" />
+                                </StackPanel>
+                            </Border>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                     <ListBox.ItemsPanel>
@@ -52,18 +50,20 @@
             <Rectangle Height="1" Fill="#fafafa" Margin="0, 10 0, 10"></Rectangle>
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
+                    <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="410"/>
                 </Grid.ColumnDefinitions>
-                <ListBox Name="SessionList" Grid.Column="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Background="Transparent" BorderThickness="0" SelectionChanged="SessionList_SelectionChanged">
+                <ListBox Name="SessionList" Grid.Column="0" Height="400" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                         ScrollViewer.VerticalScrollBarVisibility="Auto" Background="Transparent" BorderThickness="0"
+                         SelectionChanged="SessionList_SelectionChanged" Margin="0, 0, 20, 0" >
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="143"/>
-                                    <ColumnDefinition/>
+                                    <ColumnDefinition MaxWidth="143"/>
+                                    <ColumnDefinition MaxWidth="200"/>
                                 </Grid.ColumnDefinitions>
-                                <StackPanel Grid.Column="0" Margin="0, 0, 20, 0">
+                                <StackPanel Grid.Column="0" Margin="0, 10, 20, 10">
                                     
                                     <Image Width="123" Height="176" Stretch="UniformToFill" Margin="0, 0, 0, 10"
                                         Source="{Binding Path=ImagePath}">
@@ -91,13 +91,13 @@
                     </ListBox.ItemTemplate>
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <WrapPanel />
+                            <WrapPanel/>
                         </ItemsPanelTemplate>
                     </ListBox.ItemsPanel>
                 </ListBox>
                 <StackPanel x:Name="HallPanel" Grid.Column="1" Visibility="Collapsed">
                     <Rectangle Width="410" Height="10" Fill="#FAFAFA" Margin="0, 0, 0, 40"></Rectangle>
-                    <ListBox Name="SeatList" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Background="Transparent" BorderThickness="0" SelectionChanged="SeatList_SelectionChanged" HorizontalAlignment="Center">
+                    <ListBox Name="SeatList" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Background="Transparent" BorderThickness="0" SelectionChanged="SeatList_SelectionChanged" HorizontalAlignment="Center" >
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Rectangle Width="{Binding Path=SeatWidth}" Height="{Binding Path=SeatHeight}" Fill="{Binding Path=SeatFill}" Margin="0, 0, 0, 4"></Rectangle>

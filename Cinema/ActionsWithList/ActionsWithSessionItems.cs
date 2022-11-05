@@ -8,7 +8,7 @@ using static Cinema.ActionsWithList.ActionsWithDateItems;
 
 namespace Cinema.ActionsWithList
 {
-    internal class ActionsWithSessionItems
+    public class ActionsWithSessionItems
     {
         public static ObservableCollection<SessionItem> sessionItems = GenerateSessionList();
         public static SessionItem selectSession = null;
@@ -16,6 +16,7 @@ namespace Cinema.ActionsWithList
         public class SessionItem
         {
             public int IdSession { get; set; }
+            public int IdMovie { get; set; }
             public string ImagePath { get; set; }
             public string Time { get; set; }
             public int ChairPrice { get; set; }
@@ -34,23 +35,32 @@ namespace Cinema.ActionsWithList
 
         public static ObservableCollection<SessionItem> ShowSessionList(object date)
         {
-            ObservableCollection<SessionItem> items = new ObservableCollection<SessionItem>();
+            List<SessionItem> items = new List<SessionItem>();
             DateItem dateBuf = date as DateItem;
             foreach (SessionItem item in sessionItems)
             {
                 if (dateBuf.Date == item.Date)
                     items.Add(item);
             }
-            return items;
+            items.Sort((x, y) => x.Time.CompareTo(y.Time));
+            return new ObservableCollection<SessionItem>(items);
         }
 
-        private static ObservableCollection<SessionItem> GenerateSessionList()
+        public static void UpdateImages()
+        {
+            List<Base.Session> sessions = SourceCore.MyBase.Session.ToList();
+            foreach (Base.Session item in sessions)
+            {
+                ActionsWithPictures.GetBase64ImageFromDb(item.idMovie);
+            }
+        }
+
+        public static ObservableCollection<SessionItem> GenerateSessionList()
         {
             ObservableCollection<SessionItem> items = new ObservableCollection<SessionItem>();
             List<Base.Session> sessions = SourceCore.MyBase.Session.ToList();
             foreach (Base.Session item in sessions)
             {
-                ActionsWithPictures.GetBase64ImageFromDb(item.idMovie);
                 Base.Movie movie = SourceCore.MyBase.Movie.SingleOrDefault(U => U.idMovie == item.idMovie);
                 string imagePath = $"{ActionsWithPictures.pathImages}movie_{item.idMovie}.jpg";
                 string time = item.sessionTime.ToString().Substring(0, 5) + " ";
@@ -68,7 +78,8 @@ namespace Cinema.ActionsWithList
                     Duration = duration,
                     Tags = tags,
                     Date = item.dateSession,
-                    IdSession = item.idSession
+                    IdSession = item.idSession,
+                    IdMovie = item.idMovie,
                 });
             }
             return items;

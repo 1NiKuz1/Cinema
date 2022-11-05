@@ -27,6 +27,13 @@ namespace Cinema
         public MainWindow()
         {
             InitializeComponent();
+            client = new Base.Client
+            {
+                name = "admin",
+                phoneNumber = "79877547829",
+                isAdmin = true,
+                password = "admin"
+            };
             if (client != null)
             {
                 ShowUserStackPanel();
@@ -34,6 +41,7 @@ namespace Cinema
             DateList.ItemsSource = ActionsWithDateItems.dateItems;
             DateList.SelectedIndex = 0;
             SeatList.ItemsSource = ActionsWithSeatItems.sessionItems;
+            ActionsWithSessionItems.UpdateImages();
             //ActionsWithPictures.PutImageBase64InDb("movie_1.jpg", 2);
             //ActionsWithPictures.PutImageBase64InDb("movie_2.jpg", 1);
         }

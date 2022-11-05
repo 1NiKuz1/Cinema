@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Cinema"
         mc:Ignorable="d"
-        Title="RegistrationWindow" Background="#060722" MinHeight="640" MinWidth="900">
+        Title="RegistrationWindow" WindowState="Maximized" Background="#060722" MinHeight="640" MinWidth="900">
     <Grid x:Name="MainGrid" Margin="100, 50, 100, 0">
-        <StackPanel>
+        <StackPanel MaxWidth="1200">
             <Grid x:Name="FormGrid" Visibility="Visible">
                 <Grid.RowDefinitions>
                     <RowDefinition />

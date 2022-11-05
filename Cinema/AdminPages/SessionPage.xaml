@@ -1,4 +1,4 @@
-﻿<Page x:Class="Cinema.AdminPages.MoviePage"
+﻿<Page x:Class="Cinema.AdminPages.SessionPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:Cinema.AdminPages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="MoviePage" Loaded="Page_Loaded">
+      Title="SessionPage" Loaded="Page_Loaded">
 
     <Grid Background="#060722">
 
@@ -44,25 +44,33 @@
 
             <Label x:Name="RecordLabel" Content="Добавить Запись" FontSize="16" FontWeight="Medium" Margin="5,0,0,10" Foreground="#fafafa"/>
 
-            <Label Content="Название" Margin="5,0,0,0" Foreground="#fafafa"/>
-            <TextBox x:Name="RecordTextMovieName" 
+            <Label Content="Дата сеанса" Margin="5,0,0,0" Foreground="#fafafa"/>
+            <ComboBox x:Name="RecordComboBoxDate" 
+                 Height="35" Margin="20,0,20,0" SelectionChanged="RecordComboBoxDate_SelectionChanged"/>
+
+            <Label Content="Фильм" Margin="5,0,0,0" Foreground="#fafafa"/>
+            <ComboBox x:Name="RecordComboBoxMovieName"                
                  Height="35" Margin="20,0,20,0"/>
 
-            <Label Content="Продолжительность" Margin="5,0,0,0" Foreground="#fafafa"/>
-            <TextBox x:Name="RecordTextDuration" 
+            <Label Content="Время сеанса" Margin="5,0,0,0" Foreground="#fafafa"/>
+            <ComboBox x:Name="RecordComboBoxTime" 
                 Height="35" Margin="20,0,20,0"/>
 
-            <Label Content="Возратсное ограничение" Margin="5,0,0,0" Foreground="#fafafa"/>
-            <TextBox x:Name="RecordAgeRestriction"                
+            <!--<Label Content="Фильм" Margin="5,0,0,0" Foreground="#fafafa"/>
+            <TextBox x:Name="RecordTextMovieName"                
+                 Height="35" Margin="20,0,20,0"/>-->
+
+            <!--<Label Content="Время сеанса" Margin="5,0,0,0" Foreground="#fafafa"/>
+            <TextBox x:Name="RecordTextTime" 
+                Height="35" Margin="20,0,20,0"/>-->
+
+            <!--<Label Content="Цкна кресла" Margin="5,0,0,0" Foreground="#fafafa"/>
+            <TextBox x:Name="RecordTextChairPrice"               
                  Height="35" Margin="20,0,20,0"/>
 
-            <Label Content="Метик" Margin="5,0,0,0" Foreground="#fafafa"/>
-            <TextBox x:Name="RecordTextTags"               
-                 Height="35" Margin="20,0,20,0"/>
-
-            <Label Content="Название картинки (jpg)" Margin="5,0,0,0" Foreground="#fafafa"/>
-            <TextBox x:Name="RecordTextScreen" 
-                 Height="35" Margin="20,0,20,0"/>
+            <Label Content="Цена дивана" Margin="5,0,0,0" Foreground="#fafafa"/>
+            <TextBox x:Name="RecordTextSofaPrice" 
+                 Height="35" Margin="20,0,20,0"/>-->
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,15,0,0">
                 <Button x:Name="AddCommit" Content="Добавить запись" 
@@ -77,10 +85,11 @@
                   CanUserAddRows="False" RowBackground="Transparent" HorizontalGridLinesBrush="#fafafa" VerticalGridLinesBrush="#fafafa"
                   Background="Transparent" Margin="0, 0, 10, 0">
             <DataGrid.Columns>
-                <DataGridTextColumn Foreground="#fafafa" Header="Название" Binding="{Binding Path=movieName}" Width="10*"/>
-                <DataGridTextColumn Foreground="#fafafa" Header="Продолжительность" Binding="{Binding Path=duration}" Width="10*"/>
-                <DataGridTextColumn Foreground="#fafafa" Header="Воз. ограничение" Binding="{Binding Path=ageRestriction}" Width="10*"/>
-                <DataGridTextColumn Foreground="#fafafa" Header="Метки" Binding="{Binding Path=tags}" Width="10*"/>
+                <DataGridTextColumn Foreground="#fafafa" Header="Дата сеанса" Binding="{Binding Path=Date, StringFormat=\{0:dd.MM.yyyy\}}"  Width="10*"/>
+                <DataGridTextColumn Foreground="#fafafa" Header="Время сеанса" Binding="{Binding Path=Time}" Width="10*"/>
+                <DataGridTextColumn Foreground="#fafafa" Header="Фильм" Binding="{Binding Path=MovieName}" Width="10*"/>
+                <DataGridTextColumn Foreground="#fafafa" Header="Цена кресла" Binding="{Binding Path=ChairPrice}" Width="10*"/>
+                <DataGridTextColumn Foreground="#fafafa" Header="Цена дивана" Binding="{Binding Path=SofaPrice}" Width="10*"/>
             </DataGrid.Columns>
         </DataGrid>
 
