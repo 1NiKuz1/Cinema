@@ -171,7 +171,8 @@ namespace Cinema.AdminPages
             RecordComboBoxDate.SelectedItem = SelectedItem.Date.ToString("dd.MM.yyyy");
             RecordComboBoxTime.SelectedItem = null;
             RecordComboBoxMovieName.SelectedItem = movies.First(movie => movie == SelectedItem.MovieName);
-            //RecordComboBoxTime.SelectedItem = times.First(time => time == SelectedItem.Time.ToString().Substring(0, 5));
+            RecordTextChairPrice.Text = SelectedItem.ChairPrice.ToString();
+            RecordTextSofaPrice.Text = SelectedItem.SofaPrice.ToString();
         }
 
         private void RecordAdd_Click(object sender, RoutedEventArgs e)
@@ -272,6 +273,12 @@ namespace Cinema.AdminPages
         {
             StringBuilder errors = new StringBuilder();
 
+            if (string.IsNullOrEmpty(RecordTextChairPrice.Text))
+                errors.AppendLine("Укажите цену кресла");
+
+            if (string.IsNullOrEmpty(RecordTextSofaPrice.Text))
+                errors.AppendLine("Укажите цену дивана");
+
             if (string.IsNullOrEmpty((string)RecordComboBoxMovieName.SelectedItem))
                 errors.AppendLine("Укажите название фильма");
 
@@ -296,8 +303,8 @@ namespace Cinema.AdminPages
                 NewBase.dateSession = new DateTime(int.Parse(date[2]), int.Parse(date[1]), int.Parse(date[0]));
                 NewBase.sessionTime = new TimeSpan(int.Parse(time[0]), int.Parse(time[1]), 0);
                 NewBase.idMovie = SourceCore.MyBase.Movie.First(p => p.movieName == (string)RecordComboBoxMovieName.SelectedItem).idMovie;
-                NewBase.costPerChair = 220;
-                NewBase.costPerSofa = 550;
+                NewBase.costPerChair = int.Parse(RecordTextChairPrice.Text);
+                NewBase.costPerSofa = int.Parse(RecordTextSofaPrice.Text);
                 SourceCore.MyBase.Session.Add(NewBase);
                 //SelectedItem = NewBase;
             }
@@ -310,8 +317,8 @@ namespace Cinema.AdminPages
                 EditBase.dateSession = new DateTime(int.Parse(date[2]), int.Parse(date[1]), int.Parse(date[0]));
                 EditBase.sessionTime = new TimeSpan(int.Parse(time[0]), int.Parse(time[1]), 0);
                 EditBase.idMovie = SourceCore.MyBase.Movie.First(p => p.movieName == (string)RecordComboBoxMovieName.SelectedItem).idMovie;
-                EditBase.costPerChair = 220;
-                EditBase.costPerSofa = 550;
+                EditBase.costPerChair = int.Parse(RecordTextChairPrice.Text);
+                EditBase.costPerSofa = int.Parse(RecordTextSofaPrice.Text);
             }
 
             try

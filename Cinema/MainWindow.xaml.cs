@@ -42,8 +42,6 @@ namespace Cinema
             DateList.SelectedIndex = 0;
             SeatList.ItemsSource = ActionsWithSeatItems.sessionItems;
             ActionsWithSessionItems.UpdateImages();
-            //ActionsWithPictures.PutImageBase64InDb("movie_1.jpg", 2);
-            //ActionsWithPictures.PutImageBase64InDb("movie_2.jpg", 1);
         }
 
         private void ShowUserStackPanel()

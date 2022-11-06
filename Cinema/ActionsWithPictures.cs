@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Cinema
 {
@@ -13,12 +14,11 @@ namespace Cinema
     {
         public static string pathImages = @"D:\project-code\_Sharaga\Kuznetcov_N_BASE\_Cursach\Cinema\Cinema\Pictures\";
 
-        public static byte[] ConsertImageToBase64(string iFile)
+        public static byte[] ConsertImageToBinary(string iFile)
         {
-            iFile += ".jpg";
-            FileInfo fInfo = new FileInfo(pathImages + iFile);
+            FileInfo fInfo = new FileInfo(iFile);
             long numBytes = fInfo.Length;
-            FileStream fStream = new FileStream(pathImages + iFile, FileMode.Open, FileAccess.Read);
+            FileStream fStream = new FileStream(iFile, FileMode.Open, FileAccess.Read);
             BinaryReader br = new BinaryReader(fStream);
             // конвертация изображения в байты
             byte[] imageData = br.ReadBytes((int)numBytes);

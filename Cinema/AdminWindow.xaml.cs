@@ -36,12 +36,12 @@ namespace Cinema
 
         private void BookingButton_Click(object sender, RoutedEventArgs e)
         {
-
+            RootFrame.Navigate(new AdminPages.BookingPage());
         }
 
         private void ClientButton_Click(object sender, RoutedEventArgs e)
         {
-
+            RootFrame.Navigate(new AdminPages.ClientPage());
         }
 
         private void BackHomeButton_Click(object sender, RoutedEventArgs e)

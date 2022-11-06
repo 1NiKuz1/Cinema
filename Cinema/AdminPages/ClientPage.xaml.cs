@@ -17,21 +17,22 @@ using System.Windows.Shapes;
 namespace Cinema.AdminPages
 {
     /// <summary>
-    /// Логика взаимодействия для MoviePage.xaml
+    /// Логика взаимодействия для ClientPage.xaml
     /// </summary>
-    public partial class MoviePage : Page
+    public partial class ClientPage : Page
     {
-        public MoviePage()
+        public ClientPage()
         {
             InitializeComponent();
             DataContext = this;
             UpdateGrid(null);
             DlgLoad(false, "");
+            RecordComboBoxIsAdmin.ItemsSource = new List<bool>() { true, false };
         }
 
         private int DlgMode = 0;
-        public Base.Movie SelectedItem;
-        public ObservableCollection<Base.Movie> Movies;
+        public Base.Client SelectedItem;
+        public ObservableCollection<Base.Client> Clients;
 
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -50,15 +51,15 @@ namespace Cinema.AdminPages
             }
         }
 
-        private void UpdateGrid(Base.Movie Movie)
+        private void UpdateGrid(Base.Client Client)
         {
-            if ((Movie == null) && (PageGrid.ItemsSource != null))
+            if ((Client == null) && (PageGrid.ItemsSource != null))
             {
-                Movie = (Base.Movie)PageGrid.SelectedItem;
+                Client = (Base.Client)PageGrid.SelectedItem;
             }
-            Movies = new ObservableCollection<Base.Movie>(SourceCore.MyBase.Movie);
-            PageGrid.ItemsSource = Movies;
-            PageGrid.SelectedItem = Movie;
+            Clients = new ObservableCollection<Base.Client>(SourceCore.MyBase.Client);
+            PageGrid.ItemsSource = Clients;
+            PageGrid.SelectedItem = Client;
         }
 
 
@@ -90,10 +91,10 @@ namespace Cinema.AdminPages
 
         private void FillTextBox()
         {
-            RecordTextMovieName.Text = SelectedItem.movieName;
-            RecordTextDuration.Text = SelectedItem.duration.ToString();
-            RecordAgeRestriction.Text = SelectedItem.ageRestriction.ToString();
-            RecordTextTags.Text = SelectedItem.tags;
+            RecordTextName.Text = SelectedItem.name;
+            RecordTextPhoneNumber.Text = SelectedItem.phoneNumber;
+            RecordComboBoxIsAdmin.SelectedItem = SelectedItem.isAdmin;
+            RecordTextPassword.Text = SelectedItem.password;
         }
 
         private void RecordAdd_Click(object sender, RoutedEventArgs e)
@@ -108,7 +109,7 @@ namespace Cinema.AdminPages
             if (PageGrid.SelectedItem != null)
             {
                 DlgLoad(true, "Копировать");
-                SelectedItem = (Base.Movie)PageGrid.SelectedItem;
+                SelectedItem = (Base.Client)PageGrid.SelectedItem;
                 FillTextBox();
                 DlgMode = 0;
             }
@@ -123,7 +124,7 @@ namespace Cinema.AdminPages
             if (PageGrid.SelectedItem != null)
             {
                 DlgLoad(true, "Изменить");
-                SelectedItem = (Base.Movie)PageGrid.SelectedItem;
+                SelectedItem = (Base.Client)PageGrid.SelectedItem;
                 FillTextBox();
             }
             else
@@ -140,7 +141,7 @@ namespace Cinema.AdminPages
                 try
                 {
                     // Ссылка на удаляемую книгу
-                    Base.Movie DeletingAccessory = (Base.Movie)PageGrid.SelectedItem;
+                    Base.Client DeletingAccessory = (Base.Client)PageGrid.SelectedItem;
                     // Определение ссылки, на которую должен перейти указатель после удаления
                     if (PageGrid.SelectedIndex < PageGrid.Items.Count - 1)
                     {
@@ -153,8 +154,8 @@ namespace Cinema.AdminPages
                             PageGrid.SelectedIndex--;
                         }
                     }
-                    Base.Movie SelectingAccessory = (Base.Movie)PageGrid.SelectedItem;
-                    SourceCore.MyBase.Movie.Remove(DeletingAccessory);
+                    Base.Client SelectingAccessory = (Base.Client)PageGrid.SelectedItem;
+                    SourceCore.MyBase.Client.Remove(DeletingAccessory);
                     SourceCore.MyBase.SaveChanges();
                     UpdateGrid(SelectingAccessory);
                 }
@@ -173,16 +174,16 @@ namespace Cinema.AdminPages
             switch (FilterComboBox.SelectedIndex)
             {
                 case 0:
-                    PageGrid.ItemsSource = SourceCore.MyBase.Movie.Where(q => q.movieName.Contains(textbox.Text)).ToList();
+                    PageGrid.ItemsSource = SourceCore.MyBase.Client.Where(q => q.name.Contains(textbox.Text)).ToList();
                     break;
                 case 1:
-                    PageGrid.ItemsSource = SourceCore.MyBase.Movie.Where(q => q.duration.ToString().Contains(textbox.Text)).ToList();
+                    PageGrid.ItemsSource = SourceCore.MyBase.Client.Where(q => q.phoneNumber.ToString().Contains(textbox.Text)).ToList();
                     break;
                 case 2:
-                    PageGrid.ItemsSource = SourceCore.MyBase.Movie.Where(q => q.ageRestriction.ToString().Contains(textbox.Text)).ToList();
+                    PageGrid.ItemsSource = SourceCore.MyBase.Client.Where(q => q.isAdmin.ToString().Contains(textbox.Text)).ToList();
                     break;
                 case 3:
-                    PageGrid.ItemsSource = SourceCore.MyBase.Movie.Where(q => q.tags.ToString().Contains(textbox.Text)).ToList();
+                    PageGrid.ItemsSource = SourceCore.MyBase.Client.Where(q => q.password.ToString().Contains(textbox.Text)).ToList();
                     break;
             }
         }
@@ -191,24 +192,17 @@ namespace Cinema.AdminPages
         {
             StringBuilder errors = new StringBuilder();
 
-            if (string.IsNullOrEmpty(RecordTextMovieName.Text))
-                errors.AppendLine("Укажите название фильма");
+            if (string.IsNullOrEmpty(RecordTextName.Text))
+                errors.AppendLine("Укажите имя пользователя");
 
-            if (string.IsNullOrEmpty(RecordTextDuration.Text))
-                errors.AppendLine("Укажите продолжительность");
+            if (!DataValidation.CheckPhoneNumber(RecordTextPhoneNumber.Text))
+                errors.AppendLine("некоректно указан номер телефона пользователя");
 
-            if (string.IsNullOrEmpty(RecordAgeRestriction.Text))
+            if (RecordComboBoxIsAdmin.SelectedItem == null)
                 errors.AppendLine("Укажите возратсное ограничение");
 
-            if (string.IsNullOrEmpty(RecordTextTags.Text))
-                errors.AppendLine("Укажите метки");
-
-            if (string.IsNullOrEmpty(RecordTextScreen.Text))
-                errors.AppendLine("Укажите название картинки");
-
-            string[] buf = RecordTextScreen.Text.Split('.');
-            if (buf[buf.Length - 1] != "jpg")
-                errors.AppendLine("Укажите название картинки");
+            if (string.IsNullOrEmpty(RecordTextPassword.Text))
+                errors.AppendLine("Укажите пароль пользователя");
 
             if (errors.Length > 0)
             {
@@ -218,24 +212,22 @@ namespace Cinema.AdminPages
 
             if (DlgMode == 0)
             {
-                var NewBase = new Base.Movie();
-                NewBase.movieName = RecordTextMovieName.Text.Trim();
-                NewBase.duration = int.Parse(RecordTextDuration.Text);
-                NewBase.ageRestriction = int.Parse(RecordAgeRestriction.Text);
-                NewBase.tags = RecordTextTags.Text.Trim();
-                NewBase.screen = ActionsWithPictures.ConsertImageToBinary(RecordTextScreen.Text);
-                SourceCore.MyBase.Movie.Add(NewBase);
+                var NewBase = new Base.Client();
+                NewBase.name = RecordTextName.Text.Trim();
+                NewBase.phoneNumber = RecordTextPhoneNumber.Text;
+                NewBase.isAdmin = (bool)RecordComboBoxIsAdmin.SelectedItem;
+                NewBase.password = RecordTextPassword.Text.Trim();
+                SourceCore.MyBase.Client.Add(NewBase);
                 SelectedItem = NewBase;
             }
             else
             {
-                var EditBase = new Base.Movie();
-                EditBase = SourceCore.MyBase.Movie.First(p => p.idMovie == SelectedItem.idMovie);
-                EditBase.movieName = RecordTextMovieName.Text.Trim();
-                EditBase.duration = int.Parse(RecordTextDuration.Text);
-                EditBase.ageRestriction = int.Parse(RecordAgeRestriction.Text);
-                EditBase.tags = RecordTextTags.Text.Trim();
-                EditBase.screen = ActionsWithPictures.ConsertImageToBinary(RecordTextScreen.Text);
+                var EditBase = new Base.Client();
+                EditBase = SourceCore.MyBase.Client.First(p => p.idClient == SelectedItem.idClient);
+                EditBase.name = RecordTextName.Text.Trim();
+                EditBase.phoneNumber = RecordTextPhoneNumber.Text;
+                EditBase.isAdmin = (bool)RecordComboBoxIsAdmin.SelectedItem;
+                EditBase.password = RecordTextPassword.Text.Trim();
             }
 
             try
@@ -254,15 +246,6 @@ namespace Cinema.AdminPages
         {
             UpdateGrid(SelectedItem);
             DlgLoad(false, "");
-        }
-
-        private void SelectFileButton_Click(object sender, RoutedEventArgs e)
-        {
-            Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog();
-            if (openFileDialog.ShowDialog() == true)
-            {
-                RecordTextScreen.Text = openFileDialog.FileName;
-            }
         }
     }
 }

@@ -69,6 +69,12 @@
     <Compile Include="ActionsWithList\ActionsWithSeatItems.cs" />
     <Compile Include="ActionsWithList\ActionsWithSessionItems.cs" />
     <Compile Include="ActionsWithPictures.cs" />
+    <Compile Include="AdminPages\BookingPage.xaml.cs">
+      <DependentUpon>BookingPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPages\ClientPage.xaml.cs">
+      <DependentUpon>ClientPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AdminPages\MoviePage.xaml.cs">
       <DependentUpon>MoviePage.xaml</DependentUpon>
     </Compile>
@@ -111,6 +117,14 @@
     </Compile>
     <Compile Include="SourceCore.cs" />
     <Compile Include="WindowManager.cs" />
+    <Page Include="AdminPages\BookingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AdminPages\ClientPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="AdminPages\MoviePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
