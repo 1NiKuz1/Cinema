@@ -45,18 +45,19 @@ namespace Cinema.AdminPages
         private void UpdateGrid()
         {
             var booking = (from p in SourceCore.MyBase.Booking
-                     join c in SourceCore.MyBase.Client on p.idClient equals c.idClient
-                     join s in SourceCore.MyBase.Seat on p.idSeat equals s.idSeat
-                     select new
-                     {
-                        IdBooking = p.idBooking,
-                        IdSession = p.idSession,
-                        Status = p.Status,
-                        UserName = c.name,
-                        SeatNumber = s.seatNumber,
-                        RowNumber = s.rowNumber,
-                        CodeToCheck = p.codeToCheck,
-                     });
+                           join s in SourceCore.MyBase.Seat on p.idSeat equals s.idSeat
+                           join c in SourceCore.MyBase.Client on p.idClient equals c.idClient into outer
+                           from itemO in outer.DefaultIfEmpty()
+                           select new
+                           {
+                               IdBooking = p.idBooking,
+                               IdSession = p.idSession,
+                               Status = p.Status,
+                               UserName = itemO.name,
+                               SeatNumber = s.seatNumber,
+                               RowNumber = s.rowNumber,
+                               CodeToCheck = p.codeToCheck,
+                           });
             Bookings = new ObservableCollection<Booking>();
             foreach (var item in booking)
             {

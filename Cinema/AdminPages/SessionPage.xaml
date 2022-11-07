@@ -56,7 +56,7 @@
             <ComboBox x:Name="RecordComboBoxTime" 
                 Height="35" Margin="20,0,20,0"/>
 
-            <Label Content="Цкна кресла" Margin="5,0,0,0" Foreground="#fafafa"/>
+            <Label Content="Цена кресла" Margin="5,0,0,0" Foreground="#fafafa"/>
             <TextBox x:Name="RecordTextChairPrice"               
                  Height="35" Margin="20,0,20,0"/>
 
@@ -73,15 +73,15 @@
 
         </StackPanel>
 
-        <DataGrid Grid.Row="2" Grid.Column="0" x:Name="PageGrid" BorderBrush="Transparent" AutoGenerateColumns="False"
-                  CanUserAddRows="False" RowBackground="Transparent" HorizontalGridLinesBrush="#fafafa" VerticalGridLinesBrush="#fafafa"
+        <DataGrid Grid.Row="2" Grid.Column="0" x:Name="PageGrid" BorderBrush="Transparent" AutoGenerateColumns="False" IsReadOnly="True"
+                  CanUserAddRows="False" RowBackground="#fafafa" HorizontalGridLinesBrush="#060722" VerticalGridLinesBrush="#060722"
                   Background="Transparent" Margin="0, 0, 10, 0">
             <DataGrid.Columns>
-                <DataGridTextColumn Foreground="#fafafa" Header="Дата сеанса" Binding="{Binding Path=Date, StringFormat=\{0:dd.MM.yyyy\}}"  Width="10*"/>
-                <DataGridTextColumn Foreground="#fafafa" Header="Время сеанса" Binding="{Binding Path=Time}" Width="10*"/>
-                <DataGridTextColumn Foreground="#fafafa" Header="Фильм" Binding="{Binding Path=MovieName}" Width="10*"/>
-                <DataGridTextColumn Foreground="#fafafa" Header="Цена кресла" Binding="{Binding Path=ChairPrice}" Width="10*"/>
-                <DataGridTextColumn Foreground="#fafafa" Header="Цена дивана" Binding="{Binding Path=SofaPrice}" Width="10*"/>
+                <DataGridTextColumn Foreground="#060722" Header="Дата сеанса" Binding="{Binding Path=Date, StringFormat=\{0:dd.MM.yyyy\}}"  Width="10*"/>
+                <DataGridTextColumn Foreground="#060722" Header="Время сеанса" Binding="{Binding Path=Time}" Width="10*"/>
+                <DataGridTextColumn Foreground="#060722" Header="Фильм" Binding="{Binding Path=MovieName}" Width="10*"/>
+                <DataGridTextColumn Foreground="#060722" Header="Цена кресла" Binding="{Binding Path=ChairPrice}" Width="10*"/>
+                <DataGridTextColumn Foreground="#060722" Header="Цена дивана" Binding="{Binding Path=SofaPrice}" Width="10*"/>
             </DataGrid.Columns>
         </DataGrid>
 

@@ -20,6 +20,7 @@
           FontWeight="Medium" FontSize="16" HorizontalContentAlignment="Center" Margin="0, 0, 0, 10"/>
             <Button x:Name="MovieButton" Content="Фильмы" Style="{StaticResource AdminButton}"  Margin="10, 5, 10, 5" Click="MovieButton_Click"/>
             <Button x:Name="SessionButton" Content="Сеансы" Style="{StaticResource AdminButton}" Margin="10, 5, 10, 5" Click="SessionButton_Click"/>
+            <Button x:Name="TimeButton" Content="Время сеанса" Style="{StaticResource AdminButton}" Margin="10, 5, 10, 5" Click="TimeButton_Click"/>
             <Button x:Name="BookingButton" Content="Брони" Style="{StaticResource AdminButton}" Margin="10, 5, 10, 5" Click="BookingButton_Click"/>
             <Button x:Name="ClientButton" Content="Пользователи" Style="{StaticResource AdminButton}" Margin="10,5,10,20" Click="ClientButton_Click"/>
             <Button x:Name="BackHomeButton" Content="Главное меню" Style="{StaticResource AdminButtonDark}" Margin="10, 5, 10, 5" Click="BackHomeButton_Click" />

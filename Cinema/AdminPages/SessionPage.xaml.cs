@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cinema.ActionsWithList;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -14,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using static Cinema.ActionsWithList.ActionsWithSessionItems;
+using static Cinema.ActionsWithList.ActionsWithTimeSessionItems;
 
 namespace Cinema.AdminPages
 {
@@ -36,7 +38,7 @@ namespace Cinema.AdminPages
             InitializeComponent();
             DataContext = this;
             UpdateGrid(null);
-            RecordComboBoxTime.ItemsSource = times;
+            RecordComboBoxTime.ItemsSource = GenerateTimeList();
             movies = GenerateMoviesList();
             RecordComboBoxMovieName.ItemsSource = movies;
             dates = GenerateDateList();
@@ -46,35 +48,14 @@ namespace Cinema.AdminPages
 
         private int DlgMode = 0;
         public Session SelectedItem;
-        public List<string> times = new List<string>() { "09:30", "11:10", "12:55", "15:00", "17:55", "19:55", "21:50", "23:55" };
         public List<string> movies;
         public List<string> dates;
         public ObservableCollection<Session> Sessions;
 
-        private List<string> ShowFilterTimeList(string dateText)
-        {
-            if (string.IsNullOrEmpty(dateText)) return times;
-            string[] date = dateText.Split('.');
-            DateTime newDate = new DateTime(int.Parse(date[2]), int.Parse(date[1]), int.Parse(date[0]));
-            var items = new List<string>();
-            IEnumerable<Base.Session> sessionItems = SourceCore.MyBase.Session.ToList().Where(el => el.dateSession == newDate);
-            bool f = true;
-            foreach (string time in times)
-            {
-                foreach (Base.Session session in sessionItems)
-                {
-                    if (session.sessionTime.ToString().Substring(0, 5) == time) f = false;
-                }
-                if (f) items.Add(time);
-                f = true;
-            }
-            return items;
-        }
-
         private static List<string> GenerateDateList()
         {
             List<string> items = new List<string>();
-            foreach (ActionsWithList.ActionsWithDateItems.DateItem item in ActionsWithList.ActionsWithDateItems.dateItems)
+            foreach (ActionsWithDateItems.DateItem item in ActionsWithDateItems.dateItems)
             {
                 items.Add(item.Date.ToString("dd.MM.yyyy"));
             }
@@ -177,6 +158,8 @@ namespace Cinema.AdminPages
 
         private void RecordAdd_Click(object sender, RoutedEventArgs e)
         {
+            RecordComboBoxTime.ItemsSource = ShowFilterTimeList((string)RecordComboBoxDate.SelectedItem);
+            RecordComboBoxTime.SelectedItem = null;
             DlgLoad(true, "Добавить");
             DataContext = null;
             DlgMode = 0;
@@ -297,28 +280,41 @@ namespace Cinema.AdminPages
 
             if (DlgMode == 0)
             {
-                string[] time = ((string)RecordComboBoxTime.SelectedItem).Split(':');
-                string[] date = ((string)RecordComboBoxDate.SelectedItem).Split('.');
-                var NewBase = new Base.Session();
-                NewBase.dateSession = new DateTime(int.Parse(date[2]), int.Parse(date[1]), int.Parse(date[0]));
-                NewBase.sessionTime = new TimeSpan(int.Parse(time[0]), int.Parse(time[1]), 0);
-                NewBase.idMovie = SourceCore.MyBase.Movie.First(p => p.movieName == (string)RecordComboBoxMovieName.SelectedItem).idMovie;
-                NewBase.costPerChair = int.Parse(RecordTextChairPrice.Text);
-                NewBase.costPerSofa = int.Parse(RecordTextSofaPrice.Text);
-                SourceCore.MyBase.Session.Add(NewBase);
-                //SelectedItem = NewBase;
+                try
+                {
+                    string[] time = ((string)RecordComboBoxTime.SelectedItem).Split(':');
+                    string[] date = ((string)RecordComboBoxDate.SelectedItem).Split('.');
+                    var NewBase = new Base.Session();
+                    NewBase.dateSession = new DateTime(int.Parse(date[2]), int.Parse(date[1]), int.Parse(date[0]));
+                    NewBase.sessionTime = new TimeSpan(int.Parse(time[0]), int.Parse(time[1]), 0);
+                    NewBase.idMovie = SourceCore.MyBase.Movie.First(p => p.movieName == (string)RecordComboBoxMovieName.SelectedItem).idMovie;
+                    NewBase.costPerChair = int.Parse(RecordTextChairPrice.Text);
+                    NewBase.costPerSofa = int.Parse(RecordTextSofaPrice.Text);
+                    SourceCore.MyBase.Session.Add(NewBase);
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Введены некоректные данные");
+                }
             }
             else
             {
-                var EditBase = new Base.Session();
-                EditBase = SourceCore.MyBase.Session.First(p => p.idSession == SelectedItem.IdSession);
-                string[] time = ((string)RecordComboBoxTime.SelectedItem).Split(':');
-                string[] date = ((string)RecordComboBoxDate.SelectedItem).Split('.');
-                EditBase.dateSession = new DateTime(int.Parse(date[2]), int.Parse(date[1]), int.Parse(date[0]));
-                EditBase.sessionTime = new TimeSpan(int.Parse(time[0]), int.Parse(time[1]), 0);
-                EditBase.idMovie = SourceCore.MyBase.Movie.First(p => p.movieName == (string)RecordComboBoxMovieName.SelectedItem).idMovie;
-                EditBase.costPerChair = int.Parse(RecordTextChairPrice.Text);
-                EditBase.costPerSofa = int.Parse(RecordTextSofaPrice.Text);
+                try
+                {
+                    var EditBase = new Base.Session();
+                    EditBase = SourceCore.MyBase.Session.First(p => p.idSession == SelectedItem.IdSession);
+                    string[] time = ((string)RecordComboBoxTime.SelectedItem).Split(':');
+                    string[] date = ((string)RecordComboBoxDate.SelectedItem).Split('.');
+                    EditBase.dateSession = new DateTime(int.Parse(date[2]), int.Parse(date[1]), int.Parse(date[0]));
+                    EditBase.sessionTime = new TimeSpan(int.Parse(time[0]), int.Parse(time[1]), 0);
+                    EditBase.idMovie = SourceCore.MyBase.Movie.First(p => p.movieName == (string)RecordComboBoxMovieName.SelectedItem).idMovie;
+                    EditBase.costPerChair = int.Parse(RecordTextChairPrice.Text);
+                    EditBase.costPerSofa = int.Parse(RecordTextSofaPrice.Text);
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Введены некоректные данные");
+                }
             }
 
             try

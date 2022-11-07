@@ -218,24 +218,38 @@ namespace Cinema.AdminPages
 
             if (DlgMode == 0)
             {
-                var NewBase = new Base.Movie();
-                NewBase.movieName = RecordTextMovieName.Text.Trim();
-                NewBase.duration = int.Parse(RecordTextDuration.Text);
-                NewBase.ageRestriction = int.Parse(RecordAgeRestriction.Text);
-                NewBase.tags = RecordTextTags.Text.Trim();
-                NewBase.screen = ActionsWithPictures.ConsertImageToBinary(RecordTextScreen.Text);
-                SourceCore.MyBase.Movie.Add(NewBase);
-                SelectedItem = NewBase;
+                try
+                {
+                    var NewBase = new Base.Movie();
+                    NewBase.movieName = RecordTextMovieName.Text.Trim();
+                    NewBase.duration = int.Parse(RecordTextDuration.Text);
+                    NewBase.ageRestriction = int.Parse(RecordAgeRestriction.Text);
+                    NewBase.tags = RecordTextTags.Text.Trim();
+                    NewBase.screen = ActionsWithPictures.ConsertImageToBinary(RecordTextScreen.Text);
+                    SourceCore.MyBase.Movie.Add(NewBase);
+                    SelectedItem = NewBase;
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Введены некоректные данные");
+                }
             }
             else
             {
-                var EditBase = new Base.Movie();
-                EditBase = SourceCore.MyBase.Movie.First(p => p.idMovie == SelectedItem.idMovie);
-                EditBase.movieName = RecordTextMovieName.Text.Trim();
-                EditBase.duration = int.Parse(RecordTextDuration.Text);
-                EditBase.ageRestriction = int.Parse(RecordAgeRestriction.Text);
-                EditBase.tags = RecordTextTags.Text.Trim();
-                EditBase.screen = ActionsWithPictures.ConsertImageToBinary(RecordTextScreen.Text);
+                try
+                {
+                    var EditBase = new Base.Movie();
+                    EditBase = SourceCore.MyBase.Movie.First(p => p.idMovie == SelectedItem.idMovie);
+                    EditBase.movieName = RecordTextMovieName.Text.Trim();
+                    EditBase.duration = int.Parse(RecordTextDuration.Text);
+                    EditBase.ageRestriction = int.Parse(RecordAgeRestriction.Text);
+                    EditBase.tags = RecordTextTags.Text.Trim();
+                    EditBase.screen = ActionsWithPictures.ConsertImageToBinary(RecordTextScreen.Text);
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Введены некоректные данные");
+                }
             }
 
             try

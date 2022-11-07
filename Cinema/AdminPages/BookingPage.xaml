@@ -23,27 +23,27 @@
 
         <DataGrid x:Name="BookingGrid" Grid.Row="2" Grid.Column="0" IsReadOnly="True"
                   BorderBrush="Transparent" AutoGenerateColumns="False"
-                  CanUserAddRows="False" RowBackground="Transparent" HorizontalGridLinesBrush="#fafafa" VerticalGridLinesBrush="#fafafa"
+                  CanUserAddRows="False" RowBackground="#fafafa" HorizontalGridLinesBrush="#060722" VerticalGridLinesBrush="#060722"
                   Background="Transparent" SelectionChanged="BookingGrid_SelectionChanged">
             <DataGrid.Columns>
-                <DataGridTextColumn Foreground="#fafafa" Header="Статус" Binding="{Binding Path=Status}" Width="10*"/>
-                <DataGridTextColumn Foreground="#fafafa" Header="Имя клиента" Binding="{Binding Path=UserName}" Width="10*"/>
-                <DataGridTextColumn Foreground="#fafafa" Header="Номер места" Binding="{Binding Path=SeatNumber}" Width="10*"/>
-                <DataGridTextColumn Foreground="#fafafa" Header="Ряд" Binding="{Binding Path=RowNumber}" Width="10*"/>
-                <DataGridTextColumn Foreground="#fafafa" Header="Код проверки" Binding="{Binding Path=CodeToCheck}" Width="10*"/>
+                <DataGridTextColumn Foreground="#060722" Header="Статус" Binding="{Binding Path=Status}" Width="10*"/>
+                <DataGridTextColumn Foreground="#060722" Header="Имя клиента" Binding="{Binding Path=UserName}" Width="10*"/>
+                <DataGridTextColumn Foreground="#060722" Header="Номер места" Binding="{Binding Path=SeatNumber}" Width="10*"/>
+                <DataGridTextColumn Foreground="#060722" Header="Ряд" Binding="{Binding Path=RowNumber}" Width="10*"/>
+                <DataGridTextColumn Foreground="#060722" Header="Код проверки" Binding="{Binding Path=CodeToCheck}" Width="10*"/>
             </DataGrid.Columns>
         </DataGrid>
         <GridSplitter x:Name="GridSplitter" Grid.Column="1" Grid.Row="2" Width="3" HorizontalAlignment="Stretch" Background="#fafafa"/>
-        <DataGrid x:Name="SessionGrid" Grid.Row="2" Grid.Column="2"
+        <DataGrid x:Name="SessionGrid" Grid.Row="2" Grid.Column="2" IsReadOnly="True"
                   BorderBrush="Transparent" AutoGenerateColumns="False"
-                  CanUserAddRows="False" RowBackground="Transparent" HorizontalGridLinesBrush="#fafafa" VerticalGridLinesBrush="#fafafa"
+                  CanUserAddRows="False" RowBackground="#fafafa" HorizontalGridLinesBrush="#060722" VerticalGridLinesBrush="#060722"
                   Background="Transparent">
             <DataGrid.Columns>
-                <DataGridTextColumn Foreground="#fafafa" Header="Дата сеанса" Binding="{Binding Path=Date, StringFormat=\{0:dd.MM.yyyy\}}"  Width="10*"/>
-                <DataGridTextColumn Foreground="#fafafa" Header="Время сеанса" Binding="{Binding Path=Time}" Width="10*"/>
-                <DataGridTextColumn Foreground="#fafafa" Header="Фильм" Binding="{Binding Path=MovieName}" Width="10*"/>
-                <DataGridTextColumn Foreground="#fafafa" Header="Цена кресла" Binding="{Binding Path=ChairPrice}" Width="10*"/>
-                <DataGridTextColumn Foreground="#fafafa" Header="Цена дивана" Binding="{Binding Path=SofaPrice}" Width="10*"/>
+                <DataGridTextColumn Foreground="#060722" Header="Дата сеанса" Binding="{Binding Path=Date, StringFormat=\{0:dd.MM.yyyy\}}"  Width="10*"/>
+                <DataGridTextColumn Foreground="#060722" Header="Время сеанса" Binding="{Binding Path=Time}" Width="10*"/>
+                <DataGridTextColumn Foreground="#060722" Header="Фильм" Binding="{Binding Path=MovieName}" Width="10*"/>
+                <DataGridTextColumn Foreground="#060722" Header="Цена кресла" Binding="{Binding Path=ChairPrice}" Width="10*"/>
+                <DataGridTextColumn Foreground="#060722" Header="Цена дивана" Binding="{Binding Path=SofaPrice}" Width="10*"/>
             </DataGrid.Columns>
         </DataGrid>
 

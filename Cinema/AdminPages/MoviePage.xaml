@@ -79,14 +79,14 @@
 
         </StackPanel>
 
-        <DataGrid Grid.Row="2" Grid.Column="0" x:Name="PageGrid" BorderBrush="Transparent" AutoGenerateColumns="False"
-                  CanUserAddRows="False" RowBackground="Transparent" HorizontalGridLinesBrush="#fafafa" VerticalGridLinesBrush="#fafafa"
+        <DataGrid Grid.Row="2" Grid.Column="0" x:Name="PageGrid" BorderBrush="Transparent" AutoGenerateColumns="False" IsReadOnly="True"
+                  CanUserAddRows="False" RowBackground="#fafafa" HorizontalGridLinesBrush="#060722" VerticalGridLinesBrush="#060722"
                   Background="Transparent" Margin="0, 0, 10, 0">
             <DataGrid.Columns>
-                <DataGridTextColumn Foreground="#fafafa" Header="Название" Binding="{Binding Path=movieName}" Width="10*"/>
-                <DataGridTextColumn Foreground="#fafafa" Header="Продолжительность" Binding="{Binding Path=duration}" Width="10*"/>
-                <DataGridTextColumn Foreground="#fafafa" Header="Воз. ограничение" Binding="{Binding Path=ageRestriction}" Width="10*"/>
-                <DataGridTextColumn Foreground="#fafafa" Header="Метки" Binding="{Binding Path=tags}" Width="10*"/>
+                <DataGridTextColumn Foreground="#060722" Header="Название" Binding="{Binding Path=movieName}" Width="10*"/>
+                <DataGridTextColumn Foreground="#060722" Header="Продолжительность" Binding="{Binding Path=duration}" Width="10*"/>
+                <DataGridTextColumn Foreground="#060722" Header="Воз. ограничение" Binding="{Binding Path=ageRestriction}" Width="10*"/>
+                <DataGridTextColumn Foreground="#060722" Header="Метки" Binding="{Binding Path=tags}" Width="10*"/>
             </DataGrid.Columns>
         </DataGrid>
 

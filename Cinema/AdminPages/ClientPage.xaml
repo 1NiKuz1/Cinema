@@ -69,14 +69,14 @@
 
         </StackPanel>
 
-        <DataGrid Grid.Row="2" Grid.Column="0" x:Name="PageGrid" BorderBrush="Transparent" AutoGenerateColumns="False"
-                  CanUserAddRows="False" RowBackground="Transparent" HorizontalGridLinesBrush="#fafafa" VerticalGridLinesBrush="#fafafa"
+        <DataGrid Grid.Row="2" Grid.Column="0" x:Name="PageGrid" BorderBrush="Transparent" AutoGenerateColumns="False" IsReadOnly="True"
+                  CanUserAddRows="False" RowBackground="#fafafa" HorizontalGridLinesBrush="#060722" VerticalGridLinesBrush="#060722"
                   Background="Transparent" Margin="0, 0, 10, 0">
             <DataGrid.Columns>
-                <DataGridTextColumn Foreground="#fafafa" Header="Имя" Binding="{Binding Path=name}" Width="10*"/>
-                <DataGridTextColumn Foreground="#fafafa" Header="Номер телефона" Binding="{Binding Path=phoneNumber}" Width="10*"/>
-                <DataGridTextColumn Foreground="#fafafa" Header="Статус администратора" Binding="{Binding Path=isAdmin}" Width="10*"/>
-                <DataGridTextColumn Foreground="#fafafa" Header="Пароль" Binding="{Binding Path=password}" Width="10*"/>
+                <DataGridTextColumn Foreground="#060722" Header="Имя" Binding="{Binding Path=name}" Width="10*"/>
+                <DataGridTextColumn Foreground="#060722" Header="Номер телефона" Binding="{Binding Path=phoneNumber}" Width="10*"/>
+                <DataGridTextColumn Foreground="#060722" Header="Статус администратора" Binding="{Binding Path=isAdmin}" Width="10*"/>
+                <DataGridTextColumn Foreground="#060722" Header="Пароль" Binding="{Binding Path=password}" Width="10*"/>
             </DataGrid.Columns>
         </DataGrid>
 

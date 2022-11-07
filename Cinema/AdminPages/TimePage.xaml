@@ -1,0 +1,29 @@
+﻿<Page x:Class="Cinema.AdminPages.TimePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Cinema.AdminPages"
+      mc:Ignorable="d" 
+      d:DesignHeight="350.14" d:DesignWidth="800"
+      Title="TimePage">
+
+    <Grid Background="#060722" Margin="0,0,0,-143">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Label Content="Время" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" FontSize="26" FontWeight="Bold" Foreground="#fafafa" Margin="10, 0, 0, 0"/>
+
+        <DataGrid Grid.Row="1" Grid.Column="0" x:Name="PageGrid" BorderBrush="Transparent" AutoGenerateColumns="False"
+                  CanUserAddRows="False" RowBackground="#fafafa" HorizontalGridLinesBrush="#060722" VerticalGridLinesBrush="#060722"
+                  Background="Transparent" Margin="0, 0, 10, 0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Foreground="#060722" Header="Время" Binding="{Binding Path=Time}" Width="10*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+    </Grid>
+</Page>

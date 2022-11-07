@@ -48,5 +48,10 @@ namespace Cinema
         {
             WindowManager.ChangeWindow("MainWindow", this);
         }
+
+        private void TimeButton_Click(object sender, RoutedEventArgs e)
+        {
+            RootFrame.Navigate(new AdminPages.TimePage());
+        }
     }
 }

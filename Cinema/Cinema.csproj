@@ -68,6 +68,7 @@
     <Compile Include="ActionsWithList\ActionsWithDateItems.cs" />
     <Compile Include="ActionsWithList\ActionsWithSeatItems.cs" />
     <Compile Include="ActionsWithList\ActionsWithSessionItems.cs" />
+    <Compile Include="ActionsWithList\ActionsWithTimeSessionItems.cs" />
     <Compile Include="ActionsWithPictures.cs" />
     <Compile Include="AdminPages\BookingPage.xaml.cs">
       <DependentUpon>BookingPage.xaml</DependentUpon>
@@ -80,6 +81,9 @@
     </Compile>
     <Compile Include="AdminPages\SessionPage.xaml.cs">
       <DependentUpon>SessionPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPages\TimePage.xaml.cs">
+      <DependentUpon>TimePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="AdminWindow.xaml.cs">
       <DependentUpon>AdminWindow.xaml</DependentUpon>
@@ -130,6 +134,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AdminPages\SessionPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AdminPages\TimePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
