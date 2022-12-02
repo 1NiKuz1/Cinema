@@ -54,10 +54,13 @@ namespace Cinema.AdminPages
 
         private static List<string> GenerateDateList()
         {
+            //DateTime dateTime = DateTime.Today;
+            DateTime dateTime = new DateTime(2022, 10, 29);
             List<string> items = new List<string>();
-            foreach (ActionsWithDateItems.DateItem item in ActionsWithDateItems.dateItems)
+            for (int i = 0; i < 14; i++)
             {
-                items.Add(item.Date.ToString("dd.MM.yyyy"));
+                items.Add(dateTime.ToString("dd.MM.yyyy"));
+                dateTime = dateTime.AddDays(1);
             }
             return items;
         }

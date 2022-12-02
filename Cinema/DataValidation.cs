@@ -15,6 +15,11 @@ namespace Cinema
             Regex regex = new Regex(pattern);
             return regex.IsMatch(pas);
         }
+
+        public static bool CheckUserExist(string name) {
+            return SourceCore.MyBase.Client.FirstOrDefault(cl => cl.name == name) == null;
+        }
+
         public static bool CheckPhoneNumber(string phoneNumber)
         {
             string pattern = @"^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$";

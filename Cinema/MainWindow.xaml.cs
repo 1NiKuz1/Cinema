@@ -27,13 +27,6 @@ namespace Cinema
         public MainWindow()
         {
             InitializeComponent();
-            //client = new Base.Client
-            //{
-            //    name = "admin",
-            //    phoneNumber = "79877547829",
-            //    isAdmin = true,
-            //    password = "admin"
-            //};
             if (client != null)
             {
                 ShowUserStackPanel();

@@ -85,7 +85,12 @@ namespace Cinema
 
             // Создание и инициализация нового пользователя системы
             Boolean isPassword = PasswordBox.Password != "" ? DataValidation.CheckPassword(PasswordBox.Password) : DataValidation.CheckPassword(PasswordTextBox.Text);
-            
+
+            if (!DataValidation.CheckUserExist(LoginText.Text))
+            {
+                MessageBox.Show("Пользователь уже существует", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
 
             if (!isPassword)
             {

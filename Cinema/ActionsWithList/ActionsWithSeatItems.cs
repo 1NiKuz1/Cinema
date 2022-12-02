@@ -92,18 +92,3 @@ namespace Cinema.ActionsWithList
         }
     }
 }
-
-
-
-//public static void FilterLockAndFreeSeatList(object itemSession)
-//{
-//    SessionItem bufItemSession = itemSession as SessionItem;
-//    if (bufItemSession == null) return;
-//    IEnumerable<Base.Booking> seatIdItems = SourceCore.MyBase.Booking.ToList().Where(el => el.idSession == bufItemSession.IdSession);
-//    foreach (Base.Booking item in seatIdItems)
-//    {
-//        int index = sessionItems.First(el => el.IdSeat == item.idSeat).IdSeat;
-//        if (index != -1)
-//            sessionItems[index].SeatFill = COLOR_LOCK;
-//    }
-//}
