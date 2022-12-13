@@ -14,7 +14,7 @@ namespace Cinema
     {
         public static string pathImages = @"D:\project-code\_Sharaga\Kuznetcov_N_BASE\_Cursach\Cinema\Cinema\Pictures\";
 
-        public static byte[] ConsertImageToBinary(string iFile)
+        public static byte[] ConvertImageToBinary(string iFile)
         {
             FileInfo fInfo = new FileInfo(iFile);
             long numBytes = fInfo.Length;
@@ -24,27 +24,27 @@ namespace Cinema
             byte[] imageData = br.ReadBytes((int)numBytes);
             return imageData;
         }
-        public static void PutImageBase64InDb(string iFile, int id)
-        {
-            FileInfo fInfo = new FileInfo(pathImages + iFile);
-            long numBytes = fInfo.Length;
-            FileStream fStream = new FileStream(pathImages + iFile, FileMode.Open, FileAccess.Read);
-            BinaryReader br = new BinaryReader(fStream);
-            // конвертация изображения в байты
-            byte[] imageData = br.ReadBytes((int)numBytes);
-            // получение расширения файла изображения не забыв удалить точку перед расширением
-            // запись изображения в БД
-            using (SqlConnection sqlConnection = new SqlConnection(@"data source=NIKUZ;initial catalog=cinema;integrated security=True")) // строка подключения к БД
-            {
-                string commandText = "UPDATE Movie SET screen = @screen WHERE idMovie = @id"; // запрос на вставку
-                SqlCommand command = new SqlCommand(commandText, sqlConnection);
-                command.Parameters.AddWithValue("@screen", (object)imageData); // записываем само изображение
-                command.Parameters.AddWithValue("@id", id); // записываем id
-                sqlConnection.Open();
-                command.ExecuteNonQuery();
-                sqlConnection.Close();
-            }
-        }
+        //public static void PutImageBase64InDb(string iFile, int id)
+        //{
+        //    FileInfo fInfo = new FileInfo(pathImages + iFile);
+        //    long numBytes = fInfo.Length;
+        //    FileStream fStream = new FileStream(pathImages + iFile, FileMode.Open, FileAccess.Read);
+        //    BinaryReader br = new BinaryReader(fStream);
+        //    // конвертация изображения в байты
+        //    byte[] imageData = br.ReadBytes((int)numBytes);
+        //    // получение расширения файла изображения не забыв удалить точку перед расширением
+        //    // запись изображения в БД
+        //    using (SqlConnection sqlConnection = new SqlConnection(@"data source=NIKUZ;initial catalog=cinema;integrated security=True")) // строка подключения к БД
+        //    {
+        //        string commandText = "UPDATE Movie SET screen = @screen WHERE idMovie = @id"; // запрос на вставку
+        //        SqlCommand command = new SqlCommand(commandText, sqlConnection);
+        //        command.Parameters.AddWithValue("@screen", (object)imageData); // записываем само изображение
+        //        command.Parameters.AddWithValue("@id", id); // записываем id
+        //        sqlConnection.Open();
+        //        command.ExecuteNonQuery();
+        //        sqlConnection.Close();
+        //    }
+        //}
 
         public static void GetBase64ImageFromDb(int id)
         {

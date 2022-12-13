@@ -225,7 +225,7 @@ namespace Cinema.AdminPages
                     NewBase.duration = int.Parse(RecordTextDuration.Text);
                     NewBase.ageRestriction = int.Parse(RecordAgeRestriction.Text);
                     NewBase.tags = RecordTextTags.Text.Trim();
-                    NewBase.screen = ActionsWithPictures.ConsertImageToBinary(RecordTextScreen.Text);
+                    NewBase.screen = ActionsWithPictures.ConvertImageToBinary(RecordTextScreen.Text);
                     SourceCore.MyBase.Movie.Add(NewBase);
                     SelectedItem = NewBase;
                 }
@@ -244,7 +244,7 @@ namespace Cinema.AdminPages
                     EditBase.duration = int.Parse(RecordTextDuration.Text);
                     EditBase.ageRestriction = int.Parse(RecordAgeRestriction.Text);
                     EditBase.tags = RecordTextTags.Text.Trim();
-                    EditBase.screen = ActionsWithPictures.ConsertImageToBinary(RecordTextScreen.Text);
+                    EditBase.screen = ActionsWithPictures.ConvertImageToBinary(RecordTextScreen.Text);
                 }
                 catch (Exception)
                 {
