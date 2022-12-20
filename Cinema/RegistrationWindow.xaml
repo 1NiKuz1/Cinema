@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Cinema"
         mc:Ignorable="d"
-        Title="RegistrationWindow" WindowState="Maximized" Background="#060722" MinHeight="640" MinWidth="900">
+        Title="RegistrationWindow" WindowState="Maximized" Background="#060722" MinHeight="640" MinWidth="920" d:DesignWidth="900">
     <Grid x:Name="MainGrid" Margin="100, 50, 100, 0">
         <StackPanel MaxWidth="1200">
             <Grid x:Name="FormGrid" Visibility="Visible">
@@ -48,7 +48,7 @@
                            Foreground="#fafafa" Margin="10, 0, 10, 0" />
                         <Rectangle Width="30" Height="3" RadiusX="1" RadiusY="1" Fill="#fafafa"></Rectangle>
                     </StackPanel>
-                    <Button x:Name="BackButton" Grid.Column="2" TabIndex="5" Cursor="Hand" Content="Назад" Padding="40, 20, 40, 20"
+                    <Button x:Name="BackButton" Grid.Column="2" TabIndex="5" Cursor="Hand" Content="Авторизация" Padding="40, 20, 40, 20"
                         Click="BackButton_Click" Style="{StaticResource DarkPrimeButton}">
                     </Button>
                     <Button x:Name="BackHome" Grid.Column="3" TabIndex="6" Cursor="Hand" Content="Главная страница" Padding="40, 20, 40, 20" HorizontalAlignment="Right"
