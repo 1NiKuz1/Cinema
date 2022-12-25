@@ -139,7 +139,6 @@ namespace Cinema.AdminPages
 
                 try
                 {
-                    // Ссылка на удаляемую книгу
                     Base.Movie DeletingAccessory = (Base.Movie)PageGrid.SelectedItem;
                     // Определение ссылки, на которую должен перейти указатель после удаления
                     if (PageGrid.SelectedIndex < PageGrid.Items.Count - 1)
@@ -208,7 +207,7 @@ namespace Cinema.AdminPages
 
             string[] buf = RecordTextScreen.Text.Split('.');
             if (buf[buf.Length - 1] != "jpg")
-                errors.AppendLine("Укажите название картинки");
+                errors.AppendLine("Картинка должна быть с расширением jpg");
 
             if (errors.Length > 0)
             {

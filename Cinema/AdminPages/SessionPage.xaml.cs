@@ -204,7 +204,6 @@ namespace Cinema.AdminPages
 
                 try
                 {
-                    // Ссылка на удаляемую книгу
                     Base.Session Deleting = SourceCore.MyBase.Session.First(item => item.idSession == ((Session)PageGrid.SelectedItem).IdSession);
                     // Определение ссылки, на которую должен перейти указатель после удаления
                     if (PageGrid.SelectedIndex < PageGrid.Items.Count - 1)

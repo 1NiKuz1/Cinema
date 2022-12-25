@@ -94,7 +94,7 @@ namespace Cinema
 
             if (!isPassword)
             {
-                MessageBox.Show("Неверный формат пароля, попробуйте еще раз", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Пароль должен состоять и латиницы, содержать от 8 до 24 символов, а также не менее одной заглавной буквы и цифры", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
